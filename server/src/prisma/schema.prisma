@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  email  String   @unique
-  name   String
-  games  Game[]
-  review Review[]
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  username String
+  password String
+  games    Game[]
+  review   Review[]
 }
 
 model Game {
