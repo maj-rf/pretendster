@@ -4,6 +4,8 @@ import * as middleware from './middleware/middleware';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth';
+import { userRouter } from './routes/user';
+import { postRouter } from './routes/post';
 
 const app = express();
 
@@ -17,7 +19,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api/auth', authRouter);
-
+app.use('/api/users', middleware.verifyJWT, userRouter);
+app.use('/api/posts', middleware.verifyJWT, postRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 export default app;
