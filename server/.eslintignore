@@ -2,3 +2,5 @@ build
 public
 dist
 node_modules
+.eslintrc
+.babel.config.js
