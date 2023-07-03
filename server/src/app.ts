@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/user';
 import { postRouter } from './routes/post';
-
+import { commentRouter } from './routes/comment';
 const app = express();
 
 app.use(morgan('dev'));
@@ -18,9 +18,10 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello, World');
 });
 
-app.use('/api/auth', authRouter);
-app.use('/api/users', middleware.verifyJWT, userRouter);
-app.use('/api/posts', middleware.verifyJWT, postRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', middleware.verifyJWT, userRouter);
+app.use('/api/v1/posts', middleware.verifyJWT, postRouter);
+app.use('/api/v1/comments', middleware.verifyJWT, commentRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 export default app;

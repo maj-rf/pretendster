@@ -42,7 +42,7 @@ export const verifyJWT = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const token: string = req.cookies.jwt;
+  const token = req.cookies.jwt as string;
   // User must be registered or logged in to access API endpoint.
   // If token is tampered/unverified, return invalid
   if (!token) {

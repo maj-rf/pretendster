@@ -3,9 +3,9 @@ import { db } from '../utils/db';
 import createHttpError from 'http-errors';
 
 export const getProfile = async (req: Request, res: Response) => {
-  const profileID = req.user?.id;
+  const userId = req.params.userId;
   const currentUser = await db.user.findUnique({
-    where: { id: profileID },
+    where: { id: userId },
     include: { posts: true },
   });
   if (!currentUser) throw createHttpError(401, 'User not found');
@@ -13,14 +13,19 @@ export const getProfile = async (req: Request, res: Response) => {
 };
 
 export const updateProfile = async (req: Request, res: Response) => {
-  const profileID = req.params.id;
-  if (profileID !== req.user?.id) throw createHttpError(403, 'Forbidden');
+  const userId = req.params.userId;
+  // check if user owns the profile
+  if (userId !== req.user.id) throw createHttpError(403, 'Forbidden');
+  // check if user exists
+  const user = await db.user.findUnique({ where: { id: userId } });
+  if (!user) throw createHttpError(401, 'User not found');
+
+  // update
   const { email, username } = req.body;
   const updated = await db.user.update({
-    where: { id: profileID },
+    where: { id: userId },
     data: { email, username },
   });
-  if (!updated) throw createHttpError(401, 'User not found');
   res.json(updated);
 };
 
