@@ -11,8 +11,8 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { AppInfo } from './AppInfo';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Github } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Must be a valid email address' }),
@@ -38,13 +38,13 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="w-full h-full">
-      <h1 className="text-center font-bold">Welcome to Pretendster</h1>
+    <div className="w-full h-full grid place-items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid gap-4 px-8 "
+          className="grid gap-4 px-8 py-4 w-full"
         >
+          <h1 className="text-center">Welcome!</h1>
           <FormField
             control={form.control}
             name="email"
@@ -75,9 +75,24 @@ export const LoginForm = () => {
           <Button type="button" variant="secondary">
             Guest Login
           </Button>
+          <small className="text-sm">
+            Need an account?{' '}
+            <Link
+              className="text-green-700 underline hover:decoration-emerald-300"
+              to="/register"
+            >
+              Register
+            </Link>
+          </small>
         </form>
       </Form>
-      <AppInfo />
+      <a
+        href="https://github.com/bananabread08/pretendster"
+        target="_blank"
+        className="flex gap-2 items-center justify-center self-end hover:underline"
+      >
+        <Github fill="auto" /> Made by bananabread08
+      </a>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { AppInfo } from '@/components/auth/AppInfo';
-import { LoginForm } from '@/components/auth/LoginForm';
+import { RegisterForm } from '@/components/auth/RegisterForm';
 import { ModeToggle } from '@/components/navbar/ModeToggle';
-export const Login = () => {
+export const Register = () => {
   return (
     <section className="max-w-5xl min-h-screen md:p-4 mx-auto grid md:grid-cols-2 md:place-items-center">
       <div className="relative h-full">
@@ -16,7 +16,7 @@ export const Login = () => {
           <AppInfo />
         </div>
       </div>
-      <LoginForm />
+      <RegisterForm />
     </section>
   );
 };
