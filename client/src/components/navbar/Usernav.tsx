@@ -29,7 +29,7 @@ export const Usernav = ({ user }: { user: User }) => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-96">
+      <DropdownMenuContent align="center" className="w-screen max-w-md mt-2">
         <DropdownMenuLabel>
           <div>
             <p>{user.username}</p>
