@@ -38,6 +38,8 @@ body {
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --pt-underline: 120 100% 25%;
   }
 
   .dark {
@@ -69,6 +71,8 @@ body {
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 217.2 32.6% 17.5%;
+
+    --pt-underline: 120 100% 50%;
   }
 }
 

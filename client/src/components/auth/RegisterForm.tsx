@@ -116,7 +116,7 @@ export const RegisterForm = () => {
           <small className="text-sm">
             Already have an account?{' '}
             <Link
-              className="text-green-700 underline hover:decoration-emerald-300"
+              className="text-pt-underline underline hover:decoration-pt-underline"
               to="/login"
             >
               Login

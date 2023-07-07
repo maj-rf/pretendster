@@ -2,29 +2,35 @@ import { Layout } from './components/Layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { Home } from './pages/Home';
+import { ThemeProvider } from '@/context/ThemeContext';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
       {
-        path: '/login',
-        element: <Login />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
+        index: true,
+        element: <Home />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
   },
 ]);
 
 function App() {
   return (
     <>
-      <div>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
-      </div>
+      </ThemeProvider>
     </>
   );
 }

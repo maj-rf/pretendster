@@ -41,7 +41,7 @@ export const Usernav = ({ user }: { user: User }) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link to="/home">
+            <Link to="/">
               <Home className="mr-2 h-6 w-6" />
               <span>Home</span>
             </Link>

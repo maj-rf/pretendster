@@ -78,7 +78,7 @@ export const LoginForm = () => {
           <small className="text-sm">
             Need an account?{' '}
             <Link
-              className="text-green-700 underline hover:decoration-emerald-300"
+              className="text-pt-underline underline hover:decoration-pt-underline"
               to="/register"
             >
               Register

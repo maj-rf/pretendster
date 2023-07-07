@@ -1,14 +1,15 @@
 import { Navbar } from './navbar/Navbar';
 import { Outlet } from 'react-router-dom';
-import { ThemeProvider } from '@/context/ThemeContext';
 
 export const Layout = () => {
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="flex flex-col justify-center leading-loose">
         <Navbar />
-        <Outlet />
-      </ThemeProvider>
+        <main className="grow">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 };
