@@ -1,3 +1,4 @@
+import { Comments } from '../comments/Comments';
 import { Post } from '../posts/Post';
 
 const posts = [
@@ -67,7 +68,11 @@ export const TimeLinePosts = () => {
   return (
     <div className="w-full mt-4 space-y-4">
       {posts.map((post) => {
-        return <Post key={post.id} post={post} />;
+        return (
+          <Post key={post.id} post={post}>
+            <Comments postId={post.id} />
+          </Post>
+        );
       })}
     </div>
   );

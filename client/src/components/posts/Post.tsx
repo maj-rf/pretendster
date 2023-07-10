@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,19 +7,26 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useState } from 'react';
 
-type Post = {
+type PostProps = {
   id: number;
   title: string;
   reactions: number;
   userId: number;
 };
 
-export const Post = ({ post }: { post: Post }) => {
+export const Post = ({
+  post,
+  children,
+}: {
+  post: PostProps;
+  children: React.ReactNode;
+}) => {
+  const [visible, setVisible] = useState(false);
+
   return (
-    <Card>
+    <Card className="bg-primary-foreground">
       <CardHeader>
         <CardTitle>{post.userId}</CardTitle>
         <CardDescription>{post.title}</CardDescription>
@@ -29,8 +34,9 @@ export const Post = ({ post }: { post: Post }) => {
       <CardContent></CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Like</Button>
-        <Button>Comments</Button>
+        <Button onClick={() => setVisible(!visible)}>Comments</Button>
       </CardFooter>
+      {visible ? children : null}
     </Card>
   );
 };
