@@ -26,7 +26,7 @@ export const Post = ({
   const [visible, setVisible] = useState(false);
 
   return (
-    <Card className="bg-primary-foreground">
+    <Card className="bg-primary-foreground snap-start">
       <CardHeader>
         <CardTitle>{post.userId}</CardTitle>
         <CardDescription>{post.title}</CardDescription>

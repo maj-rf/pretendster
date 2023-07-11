@@ -34,29 +34,31 @@ export const PostForm = () => {
     navigate('/');
   }
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="grid gap-4 w-full"
-      >
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Content</FormLabel>
-              <FormControl>
-                <Input placeholder="What is on your mind?" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex gap-4 items-center justify-end">
-          <Button className="w-fit">Upload an Image</Button>
-          <Button className="w-fit">Submit</Button>
-        </div>
-      </form>
-    </Form>
+    <div className="snap-start">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-4 w-full"
+        >
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Content</FormLabel>
+                <FormControl>
+                  <Input placeholder="What is on your mind?" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex gap-4 items-center justify-end">
+            <Button className="w-fit">Upload an Image</Button>
+            <Button className="w-fit">Submit</Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 };

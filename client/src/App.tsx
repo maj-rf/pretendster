@@ -4,6 +4,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/Home';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { Profile } from './pages/Profile';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
       },
     ],
   },
