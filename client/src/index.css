@@ -84,3 +84,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .scroll-list::-webkit-scrollbar {
+    height: 0.75rem;
+  }
+
+  .scroll-list::-webkit-scrollbar-track {
+    @apply bg-primary-foreground;
+  }
+
+  .scroll-list::-webkit-scrollbar-thumb {
+    @apply bg-primary;
+    border-radius: 100vw;
+  }
+}
