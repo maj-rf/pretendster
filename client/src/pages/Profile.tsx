@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { AvatarImage, Avatar, AvatarFallback } from '../components/ui/avatar';
 import { TimeLinePosts } from '@/components/home/TimelinePosts';
-import { Map, Heart, Users, User } from 'lucide-react';
+import { Map, Heart, Users } from 'lucide-react';
 const user = {
   username: 'Rozeluxe',
   email: 'rozeluxe@gmail.com',
