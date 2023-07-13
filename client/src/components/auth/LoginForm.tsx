@@ -13,6 +13,9 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useNavigate, Link } from 'react-router-dom';
 import { Github } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '@/hooks/useAuth';
+import { login } from '@/services/authService';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Must be a valid email address' }),
@@ -29,12 +32,17 @@ export const LoginForm = () => {
   });
 
   const navigate = useNavigate();
+  const { dispatch } = useAuth();
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: (payload) => {
+      dispatch({ type: 'login', payload });
+      navigate('/');
+    },
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    navigate('/');
+    mutation.mutate(values);
   }
 
   return (
@@ -71,7 +79,7 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button>Login</Button>
+          <Button disabled={mutation.isLoading ? true : false}>Login</Button>
           <Button type="button" variant="secondary">
             Guest Login
           </Button>

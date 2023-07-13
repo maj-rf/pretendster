@@ -13,6 +13,9 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useNavigate, Link } from 'react-router-dom';
 import { Github } from 'lucide-react';
+import { register } from '@/services/authService';
+import { useAuth } from '@/hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
 
 const formSchema = z
   .object({
@@ -23,13 +26,13 @@ const formSchema = z
     password: z
       .string()
       .min(4, { message: 'Must be a minimum of 4 characters' }),
-    confirmPass: z
+    passConfirm: z
       .string()
       .min(4, { message: 'Must be a minimum of 4 characters' }),
   })
-  .refine((data) => data.password === data.confirmPass, {
+  .refine((data) => data.password === data.passConfirm, {
     message: 'Passwords do not match',
-    path: ['confirmPass'],
+    path: ['passConfirm'],
   });
 
 export const RegisterForm = () => {
@@ -39,17 +42,22 @@ export const RegisterForm = () => {
       email: '',
       username: '',
       password: '',
-      confirmPass: '',
+      passConfirm: '',
     },
   });
 
   const navigate = useNavigate();
+  const { dispatch } = useAuth();
+  const mutation = useMutation({
+    mutationFn: register,
+    onSuccess: (payload) => {
+      dispatch({ type: 'login', payload });
+      navigate('/');
+    },
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    navigate('/');
+    mutation.mutate(values);
   }
 
   return (
@@ -101,7 +109,7 @@ export const RegisterForm = () => {
           />
           <FormField
             control={form.control}
-            name="confirmPass"
+            name="passConfirm"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
@@ -112,7 +120,7 @@ export const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Button>Register</Button>
+          <Button disabled={mutation.isLoading ? true : false}>Register</Button>
           <small className="text-sm">
             Already have an account?{' '}
             <Link
