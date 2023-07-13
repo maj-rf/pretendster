@@ -16,15 +16,21 @@ export const register = async (req: Request, res: Response) => {
   if (emailExists) throw createHttpError(400, 'Email is already in use.');
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
-  const userForToken = await db.user.create({
+  const user = await db.user.create({
     data: {
       username,
       email,
       password: passwordHash,
     },
   });
-  signAccessToken(res, userForToken);
-  res.json({ message: 'Successfully registered!' });
+  signAccessToken(res, {
+    username: user.username,
+    id: user.id,
+    email: user.email,
+  });
+  res
+    .status(200)
+    .json({ id: user.id, username: user.username, email: user.email });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -46,7 +52,9 @@ export const login = async (req: Request, res: Response) => {
     id: user.id,
     email: user.email,
   });
-  res.json({ message: 'Successfully logged in!' });
+  res
+    .status(200)
+    .json({ id: user.id, username: user.username, email: user.email });
 };
 
 export const logout = async (req: Request, res: Response) => {
