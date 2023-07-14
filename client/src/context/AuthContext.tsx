@@ -1,10 +1,5 @@
+import { PublicUser } from '@/types/types';
 import { createContext, useReducer } from 'react';
-
-interface PublicUser {
-  username: string;
-  email: string;
-  id: string;
-}
 
 type Action = { type: 'login'; payload: PublicUser } | { type: 'logout' };
 type Dispatch = (action: Action) => void;

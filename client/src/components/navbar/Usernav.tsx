@@ -14,13 +14,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { logout } from '@/services/authService';
 import { useAuth } from '@/hooks/useAuth';
-type User = {
-  username: string;
-  email: string;
-  profileImg: string;
-};
+import { IUser } from '@/types/types';
 
-export const Usernav = ({ user }: { user: User }) => {
+export const Usernav = ({ user }: { user: IUser }) => {
   const { dispatch } = useAuth();
   const navigate = useNavigate();
 
@@ -37,7 +33,13 @@ export const Usernav = ({ user }: { user: User }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative rounded-full w-10 h-10">
           <Avatar className="w-10 h-10">
-            <AvatarImage src={user.profileImg} />
+            <AvatarImage
+              src={
+                user.profile_img
+                  ? user.profile_img
+                  : 'https://i.pravatar.cc/150?img=3'
+              }
+            />
             <AvatarFallback></AvatarFallback>
           </Avatar>
         </Button>
@@ -60,7 +62,7 @@ export const Usernav = ({ user }: { user: User }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to="/profile">
+            <Link to={`/profile/${user.id}/${user.username}`}>
               <User className="mr-2 h-6 w-6" />
               <span>Profile</span>
             </Link>

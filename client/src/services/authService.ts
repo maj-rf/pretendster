@@ -1,23 +1,14 @@
+import { PublicUser, UserCredentials, NewUserCredentials } from '@/types/types';
 import { api } from './api';
 
-type UserCredentials = {
-  email: string;
-  password: string;
-};
-
-type NewUserCredentials = {
-  username: string;
-  email: string;
-  password: string;
-  passConfirm: string;
-};
-
-export const login = async (creds: UserCredentials) => {
+export const login = async (creds: UserCredentials): Promise<PublicUser> => {
   const { data } = await api.post('/auth/login', creds);
   return data;
 };
 
-export const register = async (creds: NewUserCredentials) => {
+export const register = async (
+  creds: NewUserCredentials,
+): Promise<PublicUser> => {
   const { data } = await api.post('/auth/register', creds);
   return data;
 };

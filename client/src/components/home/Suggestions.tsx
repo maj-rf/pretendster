@@ -61,7 +61,7 @@ const users = [
 
 export const Suggestions = () => {
   return (
-    <section className="hidden md:block space-y-6 p-2 col-span-2">
+    <section className="hidden md:block space-y-6 col-span-3 m-2 p-4 bg-secondary rounded-xl">
       <h1 className="text-center">Friend Suggestions</h1>
       {users.map((user) => {
         return (
