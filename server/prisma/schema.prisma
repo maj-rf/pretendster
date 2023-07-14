@@ -16,6 +16,10 @@ model User {
   username     String
   password     String
   profile_img  String?
+  banner_img   String?
+  location     String?
+  status       String?
+  bio          String?
   posts        Post[]
   Comment      Comment[]
   followers    User[]    @relation("UserFollows", fields: [followerIDs], references: [id])
