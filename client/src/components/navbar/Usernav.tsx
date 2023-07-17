@@ -14,9 +14,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { logout } from '@/services/authService';
 import { useAuth } from '@/hooks/useAuth';
-import { IUser } from '@/types/types';
+import { PublicUser } from '@/types/types';
 
-export const Usernav = ({ user }: { user: IUser }) => {
+export const Usernav = ({ user }: { user: PublicUser }) => {
   const { dispatch } = useAuth();
   const navigate = useNavigate();
 
@@ -33,13 +33,7 @@ export const Usernav = ({ user }: { user: IUser }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative rounded-full w-10 h-10">
           <Avatar className="w-10 h-10">
-            <AvatarImage
-              src={
-                user.profile_img
-                  ? user.profile_img
-                  : 'https://i.pravatar.cc/150?img=3'
-              }
-            />
+            <AvatarImage src={user.profileImg} />
             <AvatarFallback></AvatarFallback>
           </Avatar>
         </Button>
