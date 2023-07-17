@@ -27,10 +27,16 @@ export const register = async (req: Request, res: Response) => {
     username: user.username,
     id: user.id,
     email: user.email,
+    profileImg: user.profileImg,
   });
   res
     .status(200)
-    .json({ id: user.id, username: user.username, email: user.email });
+    .json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      profileImg: user.profileImg,
+    });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -51,10 +57,16 @@ export const login = async (req: Request, res: Response) => {
     username: user.username,
     id: user.id,
     email: user.email,
+    profileImg: user.profileImg,
   });
   res
     .status(200)
-    .json({ id: user.id, username: user.username, email: user.email });
+    .json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      profileImg: user.profileImg,
+    });
 };
 
 export const logout = async (req: Request, res: Response) => {

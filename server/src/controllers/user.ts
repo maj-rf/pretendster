@@ -19,12 +19,11 @@ export const updateProfile = async (req: Request, res: Response) => {
   // check if user exists
   const user = await db.user.findUnique({ where: { id: userId } });
   if (!user) throw createHttpError(401, 'User not found');
-
   // update
-  const { email, username } = req.body;
+  const { username, location, status, bio } = req.body;
   const updated = await db.user.update({
     where: { id: userId },
-    data: { email, username },
+    data: { username, location, status, bio },
   });
   res.json(updated);
 };

@@ -54,6 +54,7 @@ export const verifyJWT = async (
       id: (decoded as PublicUser).id,
       username: (decoded as PublicUser).username,
       email: (decoded as PublicUser).email,
+      profileImg: (decoded as PublicUser).profileImg,
     };
     req.user = user;
   });
