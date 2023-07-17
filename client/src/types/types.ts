@@ -20,8 +20,8 @@ export interface IUser {
   email: string;
   username: string;
   password: string;
-  profile_img: string | null;
-  banner_img: string | null;
+  profileImg: string;
+  bannerImg: string;
   location: string | null;
   status: string | null;
   bio: string | null;
@@ -30,7 +30,10 @@ export interface IUser {
   posts: IPost[];
 }
 
-export type PublicUser = Pick<IUser, 'username' | 'email' | 'id'>;
+export type PublicUser = Pick<
+  IUser,
+  'username' | 'email' | 'id' | 'profileImg'
+>;
 
 export type UserCredentials = Pick<IUser, 'email' | 'password'>;
 
@@ -40,3 +43,5 @@ export type NewUserCredentials = {
   password: string;
   passConfirm: string;
 };
+
+export type AboutMe = Pick<IUser, 'username' | 'location' | 'status' | 'bio'>;
