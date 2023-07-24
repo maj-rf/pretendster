@@ -11,7 +11,8 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createPost } from '@/services/postService';
 
 const formSchema = z.object({
   content: z.string().min(3, { message: 'Must be at least 3 characters.' }),
@@ -25,13 +26,20 @@ export const PostForm = () => {
     },
   });
 
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    mutation.mutate(values);
     console.log(values);
-    navigate('/');
   }
   return (
     <div className="snap-start">

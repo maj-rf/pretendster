@@ -8,7 +8,7 @@ export const Navbar = () => {
   return (
     <>
       {state.user ? (
-        <header className="border-b-4 grow">
+        <header className="grow shadow-sm shadow-accent z-10">
           <nav className="container mx-auto px-10 py-3 flex items-center justify-between">
             <div className="text-xl font-bold">Pretendster</div>
             <div className="flex items-center gap-4">

@@ -98,4 +98,31 @@ body {
     @apply bg-primary;
     border-radius: 100vw;
   }
+
+  /* .marquee {
+    animation: move-rtl 10s linear infinite;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    user-select: none;
+    gap: 1rem;
+  }
+
+  .marquee-content {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    min-width: 100%;
+    max-width: fit-content;
+  }
+
+  @keyframes move-rtl {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 1rem));
+    }
+  } */
 }

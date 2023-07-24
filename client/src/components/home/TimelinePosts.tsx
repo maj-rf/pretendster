@@ -1,6 +1,10 @@
 import { Comments } from '../comments/Comments';
 import { Post } from '../posts/Post';
 
+/**
+ * TODO: Fetch Timeline posts and replace current posts
+ */
+
 const posts = [
   {
     id: 11,

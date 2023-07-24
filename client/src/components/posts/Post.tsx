@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Heart } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -29,12 +30,20 @@ export const Post = ({
     <Card className="bg-primary-foreground snap-start">
       <CardHeader>
         <CardTitle>{post.userId}</CardTitle>
-        <CardDescription>{post.title}</CardDescription>
+        <CardDescription>{post.userId}</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Like</Button>
-        <Button onClick={() => setVisible(!visible)}>Comments</Button>
+      <CardContent>{post.title}</CardContent>
+      <CardFooter className="flex justify-between p-0">
+        <Button className="basis-1/3 space-x-4 rounded-tr-none rounded-br-none">
+          <Heart /> <span>{post.reactions}</span>
+        </Button>
+        <Button
+          className="basis-2/3 rounded-tl-none rounded-bl-none"
+          variant="ghost"
+          onClick={() => setVisible(!visible)}
+        >
+          Comments
+        </Button>
       </CardFooter>
       {visible ? children : null}
     </Card>

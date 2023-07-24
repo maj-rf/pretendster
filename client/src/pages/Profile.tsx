@@ -9,13 +9,15 @@ import { getProfile } from '@/services/userService';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { useState } from 'react';
 import { EditFormModal } from '@/components/profile/EditFormModal';
+import { useAuth } from '@/hooks/useAuth';
 /** TODO
  *
  * Change Cover Photo should only be visibile if currentUser.id matches profileID
- *
+ * Marquee the bio?
  */
 
 export const Profile = () => {
+  const { state } = useAuth();
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const { data, isLoading } = useQuery({
@@ -29,7 +31,7 @@ export const Profile = () => {
   return (
     <Dialog open={showModal} onOpenChange={setShowModal}>
       <section>
-        <div className="relative">
+        <div className="relative z-10">
           <img
             src={data.bannerImg}
             alt={data.username + 'background'}
@@ -45,14 +47,16 @@ export const Profile = () => {
                 {data.username}
               </div>
             </div>
-            <Button className="space-x-1">
-              <Camera />
-              <span className="hidden md:block">Change Banner</span>
-            </Button>
+            {state?.user?.id === data.id ? (
+              <Button className="space-x-1">
+                <Camera />
+                <span className="hidden md:block">Change Banner</span>
+              </Button>
+            ) : null}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-9 container mx-auto mt-8 h-[60vh] p-4 overflow-y-scroll scroll-list snap-y md:snap-none relative">
+        <div className="grid grid-cols-1 md:grid-cols-9 container mx-auto h-[calc(100vh-14rem)] py-8 overflow-y-scroll scroll-list relative">
           <div className="col-span-3 bg-secondary rounded-md p-4 h-fit relative md:sticky md:top-0 space-y-4">
             <h1 className="text-2xl font-bold">About Me</h1>
             <div className="flex items-center">
@@ -67,21 +71,45 @@ export const Profile = () => {
               <Users className="mr-2 h-6 w-6" />
               <span>Followed by {data.followerIDs.length} people</span>
             </div>
-            <div className="flex items-center justify-center">
-              <p className="bg-accent w-full text-center font-semibold">
+            <div className="flex items-center">
+              <Users className="mr-2 h-6 w-6" />
+              <span>Follows {data.followingIDs.length} people</span>
+            </div>
+            <div className="flex items-center justify-start">
+              <p className="bg-accent text-center font-semibold">
                 {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
               </p>
             </div>
-            <DialogTrigger
-              asChild
-              className="absolute top-4 right-8 md:top-0 md:right-4"
-            >
-              <Button onClick={() => setShowModal(true)}>Edit</Button>
-            </DialogTrigger>
+            {/* <div className="marquee ">
+              <ul className="marquee-content">
+                <li>
+                  {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
+                </li>
+                <li>
+                  {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
+                </li>
+              </ul>
+              <ul className=" marquee-content" aria-hidden="true">
+                <li>
+                  {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
+                </li>
+                <li>
+                  {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
+                </li>
+              </ul>
+            </div> */}
+            {state?.user?.id === data.id ? (
+              <DialogTrigger
+                asChild
+                className="absolute top-4 right-8 md:top-0 md:right-4"
+              >
+                <Button onClick={() => setShowModal(true)}>Edit</Button>
+              </DialogTrigger>
+            ) : null}
           </div>
 
           <div className="col-span-6 md:px-6 py-2">
-            <h1 className="snap-start text-2xl font-bold">Your Posts</h1>
+            <h1 className="text-2xl font-bold">Your Posts</h1>
             <TimeLinePosts />
           </div>
         </div>
