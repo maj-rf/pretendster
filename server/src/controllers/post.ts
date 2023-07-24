@@ -36,6 +36,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
       user: {
         select: {
           username: true,
+          profileImg: true,
         },
       },
     },
