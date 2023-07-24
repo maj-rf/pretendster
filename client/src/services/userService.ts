@@ -10,6 +10,21 @@ export const updateAboutProfile = async (obj: {
   update: AboutMe;
   id: string;
 }): Promise<IUser> => {
-  const { data } = await api.patch(`users/profile/${obj.id}`, obj.update);
+  const { data } = await api.patch(`/users/profile/${obj.id}`, obj.update);
+  return data;
+};
+
+export const getUsers = async (): Promise<IUser[]> => {
+  const { data } = await api.get('/users/all');
+  return data;
+};
+
+export const followUser = async (userId: string): Promise<IUser> => {
+  const { data } = await api.patch(`users/user/${userId}/follow`);
+  return data;
+};
+
+export const unfollowUser = async (userId: string): Promise<IUser> => {
+  const { data } = await api.patch(`users/user/${userId}/unfollow`);
   return data;
 };
