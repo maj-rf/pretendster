@@ -13,6 +13,8 @@ export interface IPost {
   userId: string;
   createdAt: Date;
   updatedAt: Date;
+  likes: string[];
+  user: UsernameAndImg;
 }
 
 export interface IUser {
@@ -45,3 +47,4 @@ export type NewUserCredentials = {
 };
 
 export type AboutMe = Pick<IUser, 'username' | 'location' | 'status' | 'bio'>;
+export type UsernameAndImg = Pick<IUser, 'username' | 'profileImg'>;
