@@ -1,20 +1,26 @@
 import { Button } from '@/components/ui/button';
-import { Heart } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { useState } from 'react';
+import { UsernameAndImg } from '@/types/types';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+
+/**
+ * TODO: Mutation for updating likes
+ */
 
 type PostProps = {
-  id: number;
-  title: string;
-  reactions: number;
-  userId: number;
+  id: string;
+  content: string;
+  likes: string[];
+  userId: string;
+  user: UsernameAndImg;
 };
 
 export const Post = ({
@@ -27,15 +33,24 @@ export const Post = ({
   const [visible, setVisible] = useState(false);
 
   return (
-    <Card className="bg-primary-foreground snap-start">
+    <Card>
       <CardHeader>
-        <CardTitle>{post.userId}</CardTitle>
-        <CardDescription>{post.userId}</CardDescription>
+        <CardDescription className="flex items-center gap-2">
+          <Avatar>
+            <AvatarImage
+              src={post.user.profileImg}
+              alt={`${post.user.username}'s avatar`}
+              className="w-10 h-10 rounded-full"
+            />
+            <AvatarFallback></AvatarFallback>
+          </Avatar>
+          {post.user.username}
+        </CardDescription>
       </CardHeader>
-      <CardContent>{post.title}</CardContent>
+      <CardContent>{post.content}</CardContent>
       <CardFooter className="flex justify-between p-0">
         <Button className="basis-1/3 space-x-4 rounded-tr-none rounded-br-none">
-          <Heart /> <span>{post.reactions}</span>
+          <ThumbsUp /> <span>{post.likes.length}</span>
         </Button>
         <Button
           className="basis-2/3 rounded-tl-none rounded-bl-none"

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Comment } from './Comment';
 
 type CommentsProps = {
-  postId: number;
+  postId: string;
 };
 
 const comments = [
@@ -29,7 +29,9 @@ const comments = [
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const Comments = (props: CommentsProps) => {
-  const postComments = comments.filter((c) => c.postId === props.postId);
+  const postComments = comments.filter(
+    (c) => c.postId.toString() === props.postId,
+  );
 
   // delete this later once fetch is added
   const [loading, setLoading] = useState(true);

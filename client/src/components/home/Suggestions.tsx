@@ -4,6 +4,7 @@ import { followUser, getUsers, unfollowUser } from '@/services/userService';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '../ui/button';
+import { SuggestionSkeleton } from './SuggestionSkeleton';
 
 export const Suggestions = () => {
   const queryClient = useQueryClient();
@@ -29,10 +30,10 @@ export const Suggestions = () => {
     },
   });
 
-  if (query.isLoading) return <div>Loading...</div>;
+  if (query.isLoading) return <SuggestionSkeleton />;
   if (!query.data) return <div>Invalid</div>;
   return (
-    <section className="hidden md:block space-y-3 col-span-3 p-4 bg-secondary rounded-xl h-fit sticky top-0">
+    <section className="hidden md:block space-y-3 col-span-3 p-4 bg-primary-foreground rounded-xl h-fit sticky top-0">
       <h1 className="text-center">Friend Suggestions</h1>
       {query.data.map((user) => {
         return (
@@ -53,12 +54,18 @@ export const Suggestions = () => {
               </Link>
 
               {user.followerIDs.includes(state.user?.id as string) ? (
-                <Button onClick={() => unfollowMutation.mutate(user.id)}>
-                  Unfollow
+                <Button
+                  onClick={() => unfollowMutation.mutate(user.id)}
+                  disabled={unfollowMutation.isLoading}
+                >
+                  {unfollowMutation.isLoading ? 'Unfollowing...' : 'Unfollow'}
                 </Button>
               ) : (
-                <Button onClick={() => followMutation.mutate(user.id)}>
-                  Follow
+                <Button
+                  onClick={() => followMutation.mutate(user.id)}
+                  disabled={followMutation.isLoading}
+                >
+                  {followMutation.isLoading ? 'Following...' : 'Follow'}
                 </Button>
               )}
             </div>

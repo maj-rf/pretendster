@@ -1,3 +1,4 @@
+import { IPost } from '@/types/types';
 import { api } from './api';
 
 export const createPost = async (obj: { content: string }) => {
@@ -5,7 +6,7 @@ export const createPost = async (obj: { content: string }) => {
   return data;
 };
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (): Promise<IPost[]> => {
   const { data } = await api.get('/posts/all');
   return data;
 };

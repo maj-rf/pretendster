@@ -32,6 +32,7 @@ export const PostForm = () => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['posts'] });
+      form.reset();
     },
   });
 
@@ -62,8 +63,16 @@ export const PostForm = () => {
             )}
           />
           <div className="flex gap-4 items-center justify-end">
-            <Button className="w-fit">Upload an Image</Button>
-            <Button className="w-fit">Submit</Button>
+            <Button className="w-fit" type="button">
+              Upload an Image
+            </Button>
+            <Button
+              className="w-fit"
+              disabled={mutation.isLoading}
+              type="submit"
+            >
+              {mutation.isLoading ? 'Submitting...' : 'Submit'}
+            </Button>
           </div>
         </form>
       </Form>
