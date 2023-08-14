@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import * as middleware from './middleware/middleware';
+import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth';
@@ -10,6 +11,7 @@ import { commentRouter } from './routes/comment';
 const app = express();
 
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
