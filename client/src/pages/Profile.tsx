@@ -43,7 +43,7 @@ export const Profile = () => {
                 <AvatarImage src={data.profileImg} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
-              <div className="bg-secondary px-2 py-1 rounded-2xl absolute bottom-0 right-[-4rem] font-medium">
+              <div className="bg-secondary px-2 py-1 rounded-2xl translate-y-8 font-medium">
                 {data.username}
               </div>
             </div>
