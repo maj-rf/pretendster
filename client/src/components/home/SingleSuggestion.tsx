@@ -5,7 +5,7 @@ import { IUser } from '@/types/types';
 import { useAuth } from '@/hooks/useAuth';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { followUser, unfollowUser } from '@/services/userService';
-
+import { UserPlus, UserMinus } from 'lucide-react';
 export const SingleSuggestion = ({ user }: { user: IUser }) => {
   const { state } = useAuth();
   const queryClient = useQueryClient();
@@ -25,12 +25,12 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
     },
   });
   return (
-    <div
+    <article
       key={user.id}
-      className="flex items-center justify-between hover:bg-primary-foreground p-1"
+      className="flex flex-col md:flex-row items-center justify-between hover:bg-primary-foreground p-1"
     >
       <div className="flex items-center gap-2">
-        <Avatar className="hidden lg:block h-10 w-10 border border-border ">
+        <Avatar className="lg:block h-10 w-10 border border-border ">
           <AvatarImage src={user.profileImg} />
           <AvatarFallback>{user.username}</AvatarFallback>
         </Avatar>
@@ -46,17 +46,27 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
         <Button
           onClick={() => unfollowMutation.mutate(user.id)}
           disabled={unfollowMutation.isLoading}
+          size="sm"
+          className="flex gap-1"
         >
-          {unfollowMutation.isLoading ? 'Unfollowing...' : 'Unfollow'}
+          <UserMinus />
+          <span className="hidden lg:block">
+            {unfollowMutation.isLoading ? 'Unfollowing...' : 'Unfollow'}
+          </span>
         </Button>
       ) : (
         <Button
           onClick={() => followMutation.mutate(user.id)}
           disabled={followMutation.isLoading}
+          size="sm"
+          className="flex gap-1"
         >
-          {followMutation.isLoading ? 'Following...' : 'Follow'}
+          <UserPlus />
+          <span className="hidden lg:block">
+            {followMutation.isLoading ? 'Following...' : 'Follow'}
+          </span>
         </Button>
       )}
-    </div>
+    </article>
   );
 };
