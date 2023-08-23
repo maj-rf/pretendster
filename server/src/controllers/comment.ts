@@ -24,7 +24,17 @@ export const getCommentsFromPost = async (req: Request, res: Response) => {
   const postId = req.params.postId;
   const post = await db.post.findUnique({ where: { id: postId } });
   if (!post) throw createHttpError(400, 'Post not found.');
-  const comments = await db.comment.findMany({ where: { postId } });
+  const comments = await db.comment.findMany({
+    where: { postId },
+    include: {
+      user: {
+        select: {
+          username: true,
+          profileImg: true,
+        },
+      },
+    },
+  });
   if (!comments) throw createHttpError(400, 'Comments not found.');
   res.json(comments);
 };
