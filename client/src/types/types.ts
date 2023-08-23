@@ -5,6 +5,7 @@ export interface IComment {
   userId: string;
   createdAt: Date;
   updatedAt: Date;
+  user: UsernameAndImg;
 }
 
 export interface IPost {
