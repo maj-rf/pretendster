@@ -35,7 +35,7 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
           <AvatarFallback>{user.username}</AvatarFallback>
         </Avatar>
         <Link
-          className="text-sm font-medium leading-none hover:underline text-muted-foreground"
+          className="text-sm leading-none hover:underline text-muted-foreground"
           to={`/profile/${user.id}/${user.username}`}
         >
           {user.username}

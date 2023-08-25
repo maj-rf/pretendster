@@ -40,7 +40,6 @@ export const PostForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     mutation.mutate(values);
-    console.log(values);
   }
   return (
     <div className="snap-start">

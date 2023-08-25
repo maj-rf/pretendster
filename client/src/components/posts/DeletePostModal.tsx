@@ -36,7 +36,7 @@ export const DeletePostModal = (props: DeletePostModalProps) => {
           Cancel
         </Button>
         <Button
-          className="bg-red-400 dark:bg-red-500 dark:text-white"
+          variant="destructive"
           onClick={() => deleteMutation.mutate(props.postId)}
           disabled={deleteMutation.isLoading ? true : false}
         >
