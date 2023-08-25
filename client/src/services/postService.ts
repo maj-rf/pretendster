@@ -15,3 +15,8 @@ export const deletePost = async (postId: string) => {
   const { data } = await api.delete(`/posts/post/${postId}`);
   return data;
 };
+
+export const updatePostLike = async (postId: string) => {
+  const { data } = await api.patch(`/posts/post/like/${postId}`);
+  return data;
+};

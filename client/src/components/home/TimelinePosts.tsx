@@ -5,7 +5,7 @@ import { getAllPosts } from '@/services/postService';
 import { CommentForm } from '../comments/CommentForm';
 
 /**
- * TODO: Fetch Timeline posts and replace current posts
+ * TODO: Figure out how to add postIds to queryKeys
  */
 
 export const TimeLinePosts = () => {
