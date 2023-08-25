@@ -9,7 +9,7 @@ import {
   FormItem,
   FormMessage,
 } from '../ui/form';
-import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { Send } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -44,7 +44,7 @@ export const CommentForm = ({ postId }: { postId: string }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
         <FormField
           control={form.control}
           name="content"
@@ -52,13 +52,17 @@ export const CommentForm = ({ postId }: { postId: string }) => {
             <FormItem>
               <FormLabel className="sr-only">Send a Comment</FormLabel>
               <FormControl>
-                <Input placeholder="Write a comment..." {...field} />
+                <Textarea
+                  placeholder="Write a comment..."
+                  {...field}
+                  className="pr-14 resize-none"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex items-center justify-end">
+        <div className="absolute top-0 right-0">
           <Button
             className="w-fit"
             disabled={commentMutation.isLoading}
