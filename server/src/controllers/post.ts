@@ -35,7 +35,6 @@ export const updateLike = async (req: Request, res: Response) => {
   const userId = req.user.id;
   const post = await db.post.findUnique({ where: { id: postId } });
   if (!post) throw createHttpError(401, 'Post not found');
-  if (post.userId !== userId) throw createHttpError(403, 'Forbidden');
   if (post.likes.includes(userId)) {
     await db.post.update({
       where: { id: postId },
