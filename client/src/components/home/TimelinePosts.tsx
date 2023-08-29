@@ -3,6 +3,7 @@ import { Comments } from '../comments/Comments';
 import { Post } from '../posts/Post';
 import { getAllPosts } from '@/services/postService';
 import { CommentForm } from '../comments/CommentForm';
+import { TimelinePostsSkeleton } from './TimelinePostsSkeleton';
 
 /**
  * TODO: Figure out how to add postIds to queryKeys
@@ -14,7 +15,7 @@ export const TimeLinePosts = () => {
     queryFn: getAllPosts,
   });
 
-  if (query.isLoading) return <div>Loading...</div>;
+  if (query.isLoading) return <TimelinePostsSkeleton />;
   if (!query.data) return <div>Invalid</div>;
 
   return (
