@@ -16,10 +16,6 @@ import { DeletePostModal } from './DeletePostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePostLike } from '@/services/postService';
 
-/**
- * TODO: Invalidate post for likes update using PostId
- */
-
 type PostProps = {
   id: string;
   content: string;
@@ -45,6 +41,12 @@ export const Post = ({
       queryClient.invalidateQueries(['posts']);
     },
   });
+
+  const checkLikes = () => {
+    if (state.user) {
+      return post.likes.includes(state.user.id);
+    }
+  };
 
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
@@ -80,8 +82,11 @@ export const Post = ({
           <Button
             className="basis-1/3 space-x-4 rounded-tr-none rounded-br-none"
             onClick={() => likeMutation.mutate(post.id)}
+            disabled={likeMutation.isLoading}
+            variant="ghost"
           >
-            <ThumbsUp /> <span>{post.likes.length}</span>
+            <ThumbsUp className={checkLikes() ? 'fill-blue-600' : ''} />{' '}
+            <span>{post.likes.length}</span>
           </Button>
           <Button
             className="basis-2/3 rounded-tl-none rounded-bl-none"
