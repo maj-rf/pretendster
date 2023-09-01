@@ -14,7 +14,7 @@ export const Suggestions = () => {
   return (
     <section className="md:sticky top-0 block space-y-3 col-span-9 md:col-span-3 p-4 bg-primary-foreground rounded-xl h-fit">
       <h1 className="text-center">Friend Suggestions</h1>
-      <div className="flex md:block overflow-scroll scroll-list overflow-y-hidden">
+      <div className="flex gap-2 md:block overflow-scroll scroll-list overflow-y-hidden p-1 md:p-0">
         {query.data.map((user) => {
           return <SingleSuggestion key={user.id} user={user} />;
         })}

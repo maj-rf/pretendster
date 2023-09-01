@@ -27,7 +27,7 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
   return (
     <article
       key={user.id}
-      className="flex flex-col md:flex-row items-center justify-between hover:bg-primary-foreground p-1"
+      className="flex flex-col md:flex-row items-center justify-between hover:bg-primary-foreground p-1 border border-border md:border-0 rounded-md"
     >
       <div className="flex items-center gap-2">
         <Avatar className="lg:block h-10 w-10 border border-border ">
