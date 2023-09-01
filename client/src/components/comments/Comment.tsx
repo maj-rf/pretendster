@@ -2,7 +2,7 @@ import { IComment } from '@/types/types';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 export const Comment = ({ comment }: { comment: IComment }) => {
   return (
-    <article className="flex flex-col border-l border-l-emerald-300">
+    <article className="flex flex-col border-l border-l-emerald-300 p-1">
       <div className="flex items-center gap-2">
         <Avatar className="self-start">
           <AvatarImage
