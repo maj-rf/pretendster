@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { useState } from 'react';
 import { EditFormModal } from '@/components/profile/EditFormModal';
 import { useAuth } from '@/hooks/useAuth';
+import { ProfileSkeleton } from '@/components/profile/ProfileSkeleton';
 /** TODO
  *
  * Change Cover Photo should only be visibile if currentUser.id matches profileID
@@ -25,7 +26,7 @@ export const Profile = () => {
     queryFn: () => getProfile(id as string),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ProfileSkeleton />;
   if (!data) return <div>Invalid</div>;
 
   return (
