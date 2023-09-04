@@ -4,6 +4,8 @@ import { ACCESS_TOKEN } from '../config/config';
 import jwt from 'jsonwebtoken';
 import { PublicUser } from '../types/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { uploadToCloud } from '../utils/uploadConfig';
+import { bufferToDataURI } from '../utils/uploadConfig';
 
 export const unknownEndpoint = (
   req: Request,
@@ -58,13 +60,25 @@ export const verifyJWT = async (
     };
     req.user = user;
   });
-  // const decoded = jwt.verify(token, ACCESS_TOKEN as string) as PublicUser;
-  // if (!decoded) return next(createHttpError(403, 'Invalid Token'));
-  // const user = {
-  //   id: decoded.id,
-  //   username: decoded.username,
-  //   email: decoded.email,
-  // };
-  // req.user = user;
+
+  next();
+};
+
+export const uploadImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { file } = req;
+  if (!file) {
+    res.locals.imageDetails = null;
+    return next();
+  }
+
+  const fileFormat = file.mimetype.split('/')[1];
+  const { base64 } = bufferToDataURI(fileFormat, file.buffer);
+  const imageDetails = await uploadToCloud(base64, fileFormat);
+  res.locals.imageDetails = imageDetails;
+
   next();
 };
