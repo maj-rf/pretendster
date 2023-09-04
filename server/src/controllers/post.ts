@@ -9,6 +9,7 @@ export const createPost = async (req: Request, res: Response) => {
   await db.post.create({
     data: {
       content: req.body.content,
+      postImg: res.locals.imageDetails?.url,
       userId: userId,
     },
   });
