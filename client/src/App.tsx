@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/Home';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { Profile } from './pages/Profile';
@@ -11,7 +12,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { useState } from 'react';
 import { EditFormModal } from '@/components/profile/EditFormModal';
 import { useAuth } from '@/hooks/useAuth';
+import { ProfileSkeleton } from '@/components/profile/ProfileSkeleton';
 /** TODO
  *
  * Change Cover Photo should only be visibile if currentUser.id matches profileID
@@ -25,7 +26,7 @@ export const Profile = () => {
     queryFn: () => getProfile(id as string),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ProfileSkeleton />;
   if (!data) return <div>Invalid</div>;
 
   return (
@@ -43,7 +44,7 @@ export const Profile = () => {
                 <AvatarImage src={data.profileImg} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
-              <div className="bg-secondary px-2 py-1 rounded-2xl absolute bottom-0 right-[-4rem] font-medium">
+              <div className="bg-secondary px-2 py-1 rounded-2xl translate-y-8 font-medium">
                 {data.username}
               </div>
             </div>

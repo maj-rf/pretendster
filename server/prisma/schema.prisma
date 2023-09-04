@@ -15,7 +15,7 @@ model User {
   email        String    @unique
   username     String
   password     String
-  profileImg   String    @default("https://i.pravatar.cc/150?img=3")
+  profileImg   String    @default("https://api.dicebear.com/6.x/lorelei/svg")
   bannerImg    String    @default("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000")
   location     String?
   status       String?
