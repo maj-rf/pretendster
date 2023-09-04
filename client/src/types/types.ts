@@ -11,6 +11,7 @@ export interface IComment {
 export interface IPost {
   id: string;
   content: string;
+  postImg: string | null;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
