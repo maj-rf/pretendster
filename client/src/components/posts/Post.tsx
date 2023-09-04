@@ -22,6 +22,7 @@ type PostProps = {
   likes: string[];
   userId: string;
   user: UsernameAndImg;
+  postImg: string;
 };
 
 export const Post = ({
@@ -77,7 +78,10 @@ export const Post = ({
             ) : null}
           </div>
         </CardHeader>
-        <CardContent>{post.content}</CardContent>
+        <CardContent>
+          <img src={post.postImg} alt={post.postImg} className="w-fit h-auto" />
+          {post.content}
+        </CardContent>
         <CardFooter className="flex justify-between p-0">
           <Button
             className="basis-1/3 space-x-4 rounded-tr-none rounded-br-none"
