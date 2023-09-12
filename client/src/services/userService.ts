@@ -28,3 +28,14 @@ export const unfollowUser = async (userId: string): Promise<IUser> => {
   const { data } = await api.patch(`users/user/${userId}/unfollow`);
   return data;
 };
+
+export const updateProfilePic = async (obj: {
+  update: FormData;
+  userId: string;
+}): Promise<string> => {
+  const { data } = await api.patch(
+    `users/profile/${obj.userId}/picture`,
+    obj.update,
+  );
+  return data;
+};
