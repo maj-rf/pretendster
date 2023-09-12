@@ -11,19 +11,50 @@ import {
 } from '@/components/ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import {
-  DialogTitle,
-  DialogDescription,
-  DialogHeader,
-  DialogContent,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { DialogFooter } from '@/components/ui/dialog';
+import { IUser } from '@/types/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateProfilePic } from '@/services/userService';
+import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/lib/utils';
+import { useAuth } from '@/hooks/useAuth';
+
+/**
+ * TODO: NAVBAR data is not the same after changing profile pic.
+ */
+
+type ChangeProfilePicModalProps = {
+  closeModal: () => void;
+  user: IUser;
+};
 
 const formSchema = z.object({
-  image: z.any().optional(),
+  image: z
+    .any()
+    .refine(
+      (file: File) => file?.size <= MAX_FILE_SIZE,
+      'Max image size is 5MB.',
+    )
+    .refine(
+      (file: File) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    ),
 });
 
-export const ChangeProfilePicModal = () => {
+export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
+  const { user, closeModal } = props;
+  const { dispatch } = useAuth();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: updateProfilePic,
+    onSuccess: (payload) => {
+      dispatch({ type: 'pic-update', payload });
+      queryClient.invalidateQueries(['profile', user.id]);
+      queryClient.invalidateQueries(['posts']);
+      form.reset();
+      closeModal();
+    },
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,25 +65,21 @@ export const ChangeProfilePicModal = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const formData = new FormData();
+    if (values.image) formData.append('image', values.image);
+    mutation.mutate({ userId: user.id, update: formData });
   }
 
   return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Update User Details</DialogTitle>
-        <DialogDescription>
-          Change your bio to spice up profile!
-        </DialogDescription>
-      </DialogHeader>
-
+    <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid gap-4 w-full"
           encType="multipart/form-data"
+          id="profile-pic-form"
         >
-          <div className="flex gap-4 items-center justify-end">
+          <div className="flex flex-col gap-4 items-center justify-end">
             <FormField
               control={form.control}
               name="image"
@@ -78,7 +105,7 @@ export const ChangeProfilePicModal = () => {
             />
 
             <Button
-              className="w-fit"
+              className="w-full"
               // disabled={mutation.isLoading}
               type="submit"
             >
@@ -88,11 +115,13 @@ export const ChangeProfilePicModal = () => {
         </form>
       </Form>
       <DialogFooter className="gap-2">
-        <Button variant="outline">Cancel</Button>
-        <Button type="submit" form="about-form">
+        <Button variant="outline" onClick={closeModal}>
+          Cancel
+        </Button>
+        <Button type="submit" form="profile-pic-form">
           Save Changes
         </Button>
       </DialogFooter>
-    </DialogContent>
+    </>
   );
 };

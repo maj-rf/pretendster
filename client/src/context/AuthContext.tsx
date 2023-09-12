@@ -1,7 +1,10 @@
 import { PublicUser } from '@/types/types';
 import { createContext, useReducer } from 'react';
 
-type Action = { type: 'login'; payload: PublicUser } | { type: 'logout' };
+type Action =
+  | { type: 'login'; payload: PublicUser }
+  | { type: 'logout' }
+  | { type: 'pic-update'; payload: string };
 //  | { type: 'update'; payload: PublicUser };
 type Dispatch = (action: Action) => void;
 type State = { user: PublicUser | null };
@@ -26,6 +29,14 @@ function authReducer(state: State, action: Action): State {
     case 'logout': {
       localStorage.removeItem('user');
       return { ...state, user: null };
+    }
+    case 'pic-update': {
+      const newUser = {
+        ...state.user,
+        profileImg: action.payload,
+      } as PublicUser;
+      localStorage.setItem('user', JSON.stringify({ ...state, user: newUser }));
+      return { ...state, user: newUser };
     }
     default: {
       throw new Error('Unhandled action type');
