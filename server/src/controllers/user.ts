@@ -28,6 +28,22 @@ export const updateProfile = async (req: Request, res: Response) => {
   res.json(updated);
 };
 
+export const updateProfilePic = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  // check if user owns the profile
+  if (userId !== req.user.id) throw createHttpError(403, 'Forbidden');
+  // check if user exists
+  const user = await db.user.findUnique({ where: { id: userId } });
+  if (!user) throw createHttpError(401, 'User not found');
+  const updated = await db.user.update({
+    where: { id: userId },
+    data: {
+      profileImg: res.locals.imageDetails?.url,
+    },
+  });
+  res.status(201).json(updated.profileImg);
+};
+
 export const getUsers = async (req: Request, res: Response) => {
   const userId = req.user.id;
   const users = await db.user.findMany({
