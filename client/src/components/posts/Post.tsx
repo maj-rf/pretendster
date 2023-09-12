@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
-import { UsernameAndImg } from '@/types/types';
+import { IPost } from '@/types/types';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,20 +16,11 @@ import { DeletePostModal } from './DeletePostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePostLike } from '@/services/postService';
 
-type PostProps = {
-  id: string;
-  content: string;
-  likes: string[];
-  userId: string;
-  user: UsernameAndImg;
-  postImg: string;
-};
-
 export const Post = ({
   post,
   children,
 }: {
-  post: PostProps;
+  post: IPost;
   children: React.ReactNode;
 }) => {
   const { state } = useAuth();
@@ -59,9 +50,11 @@ export const Post = ({
                 <AvatarImage
                   src={post.user.profileImg}
                   alt={`${post.user.username}'s avatar`}
-                  className="w-10 h-10 rounded-full"
+                  className="w-10 h-10 rounded-full object-cover object-top"
                 />
-                <AvatarFallback></AvatarFallback>
+                <AvatarFallback>
+                  {post.user.username.slice(0, 2)}
+                </AvatarFallback>
               </Avatar>
               {post.user.username}
             </CardDescription>
@@ -79,7 +72,13 @@ export const Post = ({
           </div>
         </CardHeader>
         <CardContent>
-          <img src={post.postImg} alt={post.postImg} className="w-fit h-auto" />
+          {post.postImg ? (
+            <img
+              src={post.postImg}
+              alt={post.postImg}
+              className="w-fit h-auto"
+            />
+          ) : null}
           {post.content}
         </CardContent>
         <CardFooter className="flex justify-between p-0">
