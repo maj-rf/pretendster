@@ -18,10 +18,6 @@ import { updateProfilePic } from '@/services/userService';
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 
-/**
- * TODO: NAVBAR data is not the same after changing profile pic.
- */
-
 type ChangeProfilePicModalProps = {
   closeModal: () => void;
   user: IUser;
@@ -63,8 +59,6 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const formData = new FormData();
     if (values.image) formData.append('image', values.image);
     mutation.mutate({ userId: user.id, update: formData });
@@ -103,14 +97,6 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
                 </FormItem>
               )}
             />
-
-            <Button
-              className="w-full"
-              // disabled={mutation.isLoading}
-              type="submit"
-            >
-              Upload
-            </Button>
           </div>
         </form>
       </Form>
@@ -119,7 +105,7 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
           Cancel
         </Button>
         <Button type="submit" form="profile-pic-form">
-          Save Changes
+          Upload
         </Button>
       </DialogFooter>
     </>
