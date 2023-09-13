@@ -1,7 +1,17 @@
 import { AppInfo } from '@/components/auth/AppInfo';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { ModeToggle } from '@/components/navbar/ModeToggle';
+import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+
 export const Register = () => {
+  const { state } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (state.user) navigate('/');
+  }, [state.user, navigate]);
   return (
     <section className="max-w-5xl min-h-screen md:p-4 mx-auto grid md:grid-cols-2 md:place-items-center">
       <div className="relative h-full">
