@@ -11,13 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  DialogTitle,
-  DialogDescription,
-  DialogHeader,
-  DialogContent,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { DialogFooter } from '@/components/ui/dialog';
 import { Button } from '../ui/button';
 import { IUser } from '@/types/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -50,13 +44,10 @@ export const EditFormModal = (props: EditFormModalProps) => {
   const aboutMutation = useMutation({
     mutationFn: updateAboutProfile,
     onSuccess: () => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['profile', user.id] });
       closeModal();
     },
   });
-
-  // TODO: Add Profile Update with react-query
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const id = user.id;
@@ -65,32 +56,13 @@ export const EditFormModal = (props: EditFormModalProps) => {
   }
 
   return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Update User Details</DialogTitle>
-        <DialogDescription>
-          Change your bio to spice up profile!
-        </DialogDescription>
-      </DialogHeader>
+    <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid gap-4 px-8 py-4 w-full"
           id="about-form"
         >
-          {/* <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="your_username" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="location"
@@ -140,6 +112,6 @@ export const EditFormModal = (props: EditFormModalProps) => {
           Save Changes
         </Button>
       </DialogFooter>
-    </DialogContent>
+    </>
   );
 };

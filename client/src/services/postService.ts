@@ -1,7 +1,7 @@
 import { IPost } from '@/types/types';
 import { api } from './api';
 
-export const createPost = async (obj: { content: string }) => {
+export const createPost = async (obj: FormData) => {
   const { data } = await api.post('/posts/post', obj);
   return data;
 };
