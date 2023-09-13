@@ -1,5 +1,5 @@
 import { PublicUser } from '@/types/types';
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 
 type Action =
   | { type: 'login'; payload: PublicUser }
@@ -23,11 +23,11 @@ export const AuthContext = createContext<
 function authReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'login': {
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      // localStorage.setItem('user', JSON.stringify(action.payload));
       return { ...state, user: action.payload };
     }
     case 'logout': {
-      localStorage.removeItem('user');
+      // localStorage.removeItem('user');
       return { ...state, user: null };
     }
     case 'pic-update': {
@@ -35,7 +35,7 @@ function authReducer(state: State, action: Action): State {
         ...state.user,
         profileImg: action.payload,
       } as PublicUser;
-      localStorage.setItem('user', JSON.stringify({ ...state, user: newUser }));
+      // localStorage.setItem('user', JSON.stringify({ ...state, user: newUser }));
       return { ...state, user: newUser };
     }
     default: {
@@ -47,6 +47,11 @@ function authReducer(state: State, action: Action): State {
 function AuthProvider({ children }: AuthProviderProps) {
   const [state, dispatch] = useReducer(authReducer, initialState);
   const value = { state, dispatch };
+
+  useEffect(() => {
+    if (state.user) localStorage.setItem('user', JSON.stringify(state.user));
+    else localStorage.removeItem('user');
+  }, [state.user]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
