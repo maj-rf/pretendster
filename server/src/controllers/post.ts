@@ -54,7 +54,16 @@ export const updateLike = async (req: Request, res: Response) => {
 };
 
 export const getAllPosts = async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  if (!user) throw createHttpError(401, 'User not found');
+  const followingAndYou = user.followingIDs.concat(userId);
   const posts = await db.post.findMany({
+    where: { userId: { in: followingAndYou } },
     include: {
       user: {
         select: {
@@ -76,6 +85,9 @@ export const getUserPosts = async (req: Request, res: Response) => {
   if (!user) throw createHttpError(401, 'User not found');
   const posts = await db.post.findMany({
     where: { userId },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
   if (!posts) throw createHttpError(401, 'Cannot get posts');
   res.json(posts);
