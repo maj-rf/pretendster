@@ -9,7 +9,7 @@ import { ProfilePosts } from '@/components/profile/ProfilePosts';
 export const Profile = () => {
   const { id } = useParams();
   const { data, isLoading } = useQuery({
-    queryKey: ['profile', id],
+    queryKey: ['profile', { id }],
     queryFn: () => getProfile(id as string),
   });
 
@@ -21,7 +21,7 @@ export const Profile = () => {
       <TopBanner data={data} />
       <div className="grid grid-cols-1 md:grid-cols-9 container mx-auto h-[calc(100vh-14rem)] py-8 overflow-y-scroll scroll-list relative">
         <AboutMe data={data} />
-        <ProfilePosts />
+        <ProfilePosts data={data} />
       </div>
     </section>
   );

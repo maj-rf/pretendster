@@ -1,13 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { Comments } from '../comments/Comments';
-import { Post } from '../posts/Post';
 import { getAllPosts } from '@/services/postService';
-import { CommentForm } from '../comments/CommentForm';
-import { TimelinePostsSkeleton } from './TimelinePostsSkeleton';
-
-/**
- * TODO: Figure out how to add postIds to queryKeys
- */
+import { PostsSkeleton } from './PostsSkeleton';
+import { PostList } from '../posts/PostList';
 
 export const TimeLinePosts = () => {
   const query = useQuery({
@@ -15,21 +9,12 @@ export const TimeLinePosts = () => {
     queryFn: getAllPosts,
   });
 
-  if (query.isLoading) return <TimelinePostsSkeleton />;
+  if (query.isLoading) return <PostsSkeleton />;
   if (!query.data) return <div>Invalid</div>;
 
   return (
     <div className="w-full mt-4 space-y-4">
-      {query.data.map((post) => {
-        return (
-          <Post key={post.id} post={post}>
-            <div className="p-3 bg-secondary text-muted-foreground transition-all duration-300">
-              <Comments postId={post.id} />
-              <CommentForm postId={post.id} />
-            </div>
-          </Post>
-        );
-      })}
+      <PostList data={query.data} />
     </div>
   );
 };
