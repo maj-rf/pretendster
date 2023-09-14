@@ -14,6 +14,7 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 
@@ -22,6 +23,7 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
   return (
@@ -31,7 +33,10 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
     >
       <div className="flex items-center gap-2">
         <Avatar className="lg:block h-10 w-10 border border-border ">
-          <AvatarImage src={user.profileImg} />
+          <AvatarImage
+            src={user.profileImg}
+            className="object-cover object-top"
+          />
           <AvatarFallback>{user.username}</AvatarFallback>
         </Avatar>
         <Link
