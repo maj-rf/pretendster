@@ -20,3 +20,8 @@ export const updatePostLike = async (postId: string) => {
   const { data } = await api.patch(`/posts/post/like/${postId}`);
   return data;
 };
+
+export const getYourPosts = async (userId: string): Promise<IPost[]> => {
+  const { data } = await api.get(`/posts/all/${userId}`);
+  return data;
+};
