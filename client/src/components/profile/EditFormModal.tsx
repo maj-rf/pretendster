@@ -44,7 +44,7 @@ export const EditFormModal = (props: EditFormModalProps) => {
   const aboutMutation = useMutation({
     mutationFn: updateAboutProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile', user.id] });
+      queryClient.invalidateQueries({ queryKey: ['profile', { id: user.id }] });
       closeModal();
     },
   });

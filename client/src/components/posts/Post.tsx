@@ -30,7 +30,7 @@ export const Post = ({
   const likeMutation = useMutation({
     mutationFn: updatePostLike,
     onSuccess: () => {
-      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 
