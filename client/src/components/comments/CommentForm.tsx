@@ -31,13 +31,11 @@ export const CommentForm = ({ postId }: { postId: string }) => {
   const commentMutation = useMutation({
     mutationFn: createCommentToPost,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+      queryClient.invalidateQueries({ queryKey: ['comments', { id: postId }] });
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     commentMutation.mutate({ postId: postId, content: values.content });
     form.reset();
   }

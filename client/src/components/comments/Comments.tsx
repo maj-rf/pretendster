@@ -9,7 +9,7 @@ type CommentsProps = {
 export const Comments = (props: CommentsProps) => {
   const { data, isLoading } = useQuery({
     queryFn: () => getCommentsFromPost(props.postId),
-    queryKey: ['comments', props.postId],
+    queryKey: ['comments', { id: props.postId }],
   });
 
   if (isLoading)

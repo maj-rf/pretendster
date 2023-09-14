@@ -8,7 +8,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
           <AvatarImage
             src={comment.user.profileImg}
             alt={`${comment.user.username}'s avatar`}
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full object-cover object-top"
           />
           <AvatarFallback>{comment.user.username}</AvatarFallback>
         </Avatar>
