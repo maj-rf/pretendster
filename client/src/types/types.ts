@@ -49,4 +49,4 @@ export type NewUserCredentials = {
 };
 
 export type AboutMe = Pick<IUser, 'username' | 'location' | 'status' | 'bio'>;
-export type UsernameAndImg = Pick<IUser, 'username' | 'profileImg'>;
+export type UsernameAndImg = Pick<IUser, 'username' | 'profileImg' | 'id'>;
