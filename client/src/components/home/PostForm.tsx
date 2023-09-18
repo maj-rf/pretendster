@@ -70,61 +70,55 @@ export const PostForm = () => {
     mutation.mutate(formData);
   }
   return (
-    <div className="snap-start">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="grid gap-4 w-full"
-          encType="multipart/form-data"
-        >
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid gap-4 w-full"
+        encType="multipart/form-data"
+      >
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Create A Post</FormLabel>
+              <FormControl>
+                <Input placeholder="What is on your mind?" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 items-end">
           <FormField
             control={form.control}
-            name="content"
-            render={({ field }) => (
+            name="image"
+            render={({ field: { value, onChange, ...field } }) => (
               <FormItem>
-                <FormLabel>Create A Post</FormLabel>
+                <FormLabel className="sr-only">Upload</FormLabel>
                 <FormControl>
-                  <Input placeholder="What is on your mind?" {...field} />
+                  <Input
+                    className="file:rounded-lg file:bg-primary file:text-primary-foreground"
+                    type="file"
+                    {...field}
+                    value={value.fileName}
+                    id="image"
+                    onChange={(event) => {
+                      if (event.target.files)
+                        return onChange(event.target.files[0]);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex gap-4 items-center justify-end">
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field: { value, onChange, ...field } }) => (
-                <FormItem>
-                  <FormLabel className="sr-only">Upload</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="w-fit file:rounded-lg file:bg-primary file:text-primary-foreground"
-                      type="file"
-                      {...field}
-                      value={value.fileName}
-                      id="image"
-                      onChange={(event) => {
-                        if (event.target.files)
-                          return onChange(event.target.files[0]);
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <Button
-              className="w-fit"
-              disabled={mutation.isLoading}
-              type="submit"
-            >
-              {mutation.isLoading ? 'Submitting...' : 'Submit'}
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
+          <Button disabled={mutation.isLoading} type="submit">
+            {mutation.isLoading ? 'Submitting...' : 'Submit'}
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 };
