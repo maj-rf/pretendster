@@ -38,3 +38,16 @@ export const getCommentsFromPost = async (req: Request, res: Response) => {
   if (!comments) throw createHttpError(400, 'Comments not found.');
   res.json(comments);
 };
+
+export const deleteCommentFromPost = async (req: Request, res: Response) => {
+  const postId = req.params.postId;
+  const commentId = req.params.commentId;
+  const userId = req.user.id;
+  const post = await db.post.findUnique({ where: { id: postId } });
+  if (!post) throw createHttpError(401, 'Post not found');
+  const comment = await db.comment.findUnique({ where: { id: commentId } });
+  if (!comment) throw createHttpError(401, 'Comment not found');
+  if (comment.userId !== userId) throw createHttpError(403, 'Forbidden');
+  await db.comment.delete({ where: { id: commentId } });
+  res.json({ message: 'Deleted' });
+};

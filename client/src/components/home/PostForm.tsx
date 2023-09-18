@@ -82,7 +82,7 @@ export const PostForm = () => {
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Content</FormLabel>
+                <FormLabel>Create A Post</FormLabel>
                 <FormControl>
                   <Input placeholder="What is on your mind?" {...field} />
                 </FormControl>

@@ -44,8 +44,7 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
     mutationFn: updateProfilePic,
     onSuccess: (payload) => {
       dispatch({ type: 'pic-update', payload });
-      queryClient.invalidateQueries(['profile', user.id]);
-      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries(['profile', { id: user.id }]);
       form.reset();
       closeModal();
     },

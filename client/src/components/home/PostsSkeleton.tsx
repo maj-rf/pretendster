@@ -1,6 +1,6 @@
 import { Skeleton } from '../ui/skeleton';
 
-export const TimelinePostsSkeleton = () => {
+export const PostsSkeleton = () => {
   const arr: number[] = Array.from(Array(6).keys());
   return (
     <div>
