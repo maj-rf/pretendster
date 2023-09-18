@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ThumbsUp, Trash2 } from 'lucide-react';
+import { ThumbsUp, MoreVertical } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -12,9 +12,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
-import { DeletePostModal } from './DeletePostModal';
+import { PostModal } from './PostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePostLike } from '@/services/postService';
+import { dateFormatter } from '@/lib/utils';
 
 export const Post = ({
   post,
@@ -56,7 +57,10 @@ export const Post = ({
                   {post.user.username.slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
-              {post.user.username}
+              <div>
+                <p>{post.user.username}</p>
+                <span>{dateFormatter(post.createdAt.toString())}</span>
+              </div>
             </CardDescription>
             {state.user?.id === post.userId ? (
               <DialogTrigger asChild>
@@ -65,7 +69,7 @@ export const Post = ({
                   onClick={() => setShowDialog(true)}
                   variant="ghost"
                 >
-                  <Trash2 />
+                  <MoreVertical />
                 </Button>
               </DialogTrigger>
             ) : null}
@@ -101,10 +105,7 @@ export const Post = ({
         </CardFooter>
         {visible ? children : null}
       </Card>
-      <DeletePostModal
-        closeModal={() => setShowDialog(false)}
-        postId={post.id}
-      />
+      <PostModal closeModal={() => setShowDialog(false)} post={post} />
     </Dialog>
   );
 };

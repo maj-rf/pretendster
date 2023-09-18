@@ -1,20 +1,15 @@
+import { deletePost } from '@/services/postService';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { Button } from '../ui/button';
 import {
-  DialogContent,
   DialogHeader,
+  DialogFooter,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
 } from '../ui/dialog';
-import { Button } from '../ui/button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deletePost } from '@/services/postService';
+import { PostModalProps } from '@/types/types';
 
-type DeletePostModalProps = {
-  closeModal: () => void;
-  postId: string;
-};
-
-export const DeletePostModal = (props: DeletePostModalProps) => {
+export const DeletePostTab = (props: PostModalProps) => {
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
     mutationFn: deletePost,
@@ -24,7 +19,7 @@ export const DeletePostModal = (props: DeletePostModalProps) => {
   });
 
   return (
-    <DialogContent>
+    <div className="flex flex-col gap-2">
       <DialogHeader>
         <DialogTitle>Deleting the Post</DialogTitle>
         <DialogDescription>
@@ -37,12 +32,12 @@ export const DeletePostModal = (props: DeletePostModalProps) => {
         </Button>
         <Button
           variant="destructive"
-          onClick={() => deleteMutation.mutate(props.postId)}
+          onClick={() => deleteMutation.mutate(props.post.id)}
           disabled={deleteMutation.isLoading ? true : false}
         >
           {deleteMutation.isLoading ? 'Deleting...' : 'Delete'}
         </Button>
       </DialogFooter>
-    </DialogContent>
+    </div>
   );
 };
