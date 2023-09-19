@@ -3,7 +3,6 @@ import { ThumbsUp, MoreVertical } from 'lucide-react';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
@@ -46,7 +45,7 @@ export const Post = ({
       <Card>
         <CardHeader>
           <div className="flex justify-between">
-            <CardDescription className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <Avatar>
                 <AvatarImage
                   src={post.user.profileImg}
@@ -57,11 +56,13 @@ export const Post = ({
                   {post.user.username.slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
-              <div>
-                <p>{post.user.username}</p>
-                <span>{dateFormatter(post.createdAt.toString())}</span>
+              <div className="flex flex-col md:flex-row gap-2">
+                <p className="text-sm">{post.user.username}</p>
+                <p className="text-sm text-muted-foreground">
+                  {dateFormatter(post.createdAt.toString())}
+                </p>
               </div>
-            </CardDescription>
+            </div>
             {state.user?.id === post.userId ? (
               <DialogTrigger asChild>
                 <Button
