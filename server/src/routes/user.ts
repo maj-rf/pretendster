@@ -6,6 +6,7 @@ import {
   followUser,
   updateProfile,
   updateProfilePic,
+  getSuggestions,
 } from '../controllers/user';
 import { upload } from '../utils/uploadConfig';
 import { uploadImage } from '../middleware/middleware';
@@ -13,6 +14,7 @@ import { uploadImage } from '../middleware/middleware';
 export const userRouter = express.Router();
 
 userRouter.get('/all', getUsers);
+userRouter.get('/suggestions', getSuggestions);
 userRouter.get('/profile/:userId', getProfile);
 userRouter.patch(
   '/profile/:userId/picture',

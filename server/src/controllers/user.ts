@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { db } from '../utils/db';
 import createHttpError from 'http-errors';
-
+import { excludePass } from '../utils/excludePass';
 export const getProfile = async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const currentUser = await db.user.findUnique({
     where: { id: userId },
-    include: { posts: true },
+    select: excludePass,
   });
   if (!currentUser) throw createHttpError(401, 'User not found');
   res.json(currentUser);
@@ -24,6 +24,7 @@ export const updateProfile = async (req: Request, res: Response) => {
   const updated = await db.user.update({
     where: { id: userId },
     data: { username, location, status, bio },
+    select: excludePass,
   });
   res.json(updated);
 };
@@ -40,11 +41,19 @@ export const updateProfilePic = async (req: Request, res: Response) => {
     data: {
       profileImg: res.locals.imageDetails?.url,
     },
+    select: excludePass,
   });
   res.status(201).json(updated.profileImg);
 };
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (_req: Request, res: Response) => {
+  const users = await db.user.findMany({
+    select: excludePass,
+  });
+  res.json(users);
+};
+
+export const getSuggestions = async (req: Request, res: Response) => {
   const userId = req.user.id;
   const users = await db.user.findMany({
     where: {
@@ -52,9 +61,8 @@ export const getUsers = async (req: Request, res: Response) => {
         not: userId,
       },
     },
-    include: {
-      posts: true,
-    },
+    select: excludePass,
+    take: 10,
   });
   res.json(users);
 };
@@ -62,7 +70,10 @@ export const getUsers = async (req: Request, res: Response) => {
 export const followUser = async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const yourId = req.user.id;
-  const currentUser = await db.user.findUnique({ where: { id: yourId } });
+  const currentUser = await db.user.findUnique({
+    where: { id: yourId },
+    select: excludePass,
+  });
   const user = await db.user.findUnique({ where: { id: userId } });
   if (!currentUser) throw createHttpError(401, 'User not found');
   if (!user) throw createHttpError(401, 'Invalid User');
@@ -81,7 +92,10 @@ export const followUser = async (req: Request, res: Response) => {
 export const unfollowUser = async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const yourId = req.user.id;
-  const currentUser = await db.user.findUnique({ where: { id: yourId } });
+  const currentUser = await db.user.findUnique({
+    where: { id: yourId },
+    select: excludePass,
+  });
   const user = await db.user.findUnique({ where: { id: userId } });
   if (!currentUser) throw createHttpError(401, 'User not found');
   if (!user) throw createHttpError(401, 'Invalid User');
