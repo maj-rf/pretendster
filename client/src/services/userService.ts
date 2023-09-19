@@ -19,6 +19,11 @@ export const getUsers = async (): Promise<IUser[]> => {
   return data;
 };
 
+export const getSuggestions = async (): Promise<IUser[]> => {
+  const { data } = await api.get('/users/suggestions');
+  return data;
+};
+
 export const followUser = async (userId: string): Promise<IUser> => {
   const { data } = await api.patch(`users/user/${userId}/follow`);
   return data;
