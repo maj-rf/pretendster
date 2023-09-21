@@ -1,10 +1,5 @@
 import { PostModalProps } from '@/types/types';
-import {
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '../ui/dialog';
+import { DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import {
   Form,
   FormControl,
