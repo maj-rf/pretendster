@@ -113,3 +113,16 @@ export const unfollowUser = async (req: Request, res: Response) => {
   });
   res.json(currentUser);
 };
+
+export const searchUsers = async (req: Request, res: Response) => {
+  const search = req.params.search;
+  const users = await db.user.findMany({
+    where: {
+      username: {
+        contains: search,
+        mode: 'insensitive',
+      },
+    },
+  });
+  res.json(users);
+};
