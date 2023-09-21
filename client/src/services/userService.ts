@@ -44,3 +44,8 @@ export const updateProfilePic = async (obj: {
   );
   return data;
 };
+
+export const searchUsers = async (search: string): Promise<IUser[]> => {
+  const { data } = await api.get(`users/search/${search}`);
+  return data;
+};
