@@ -9,7 +9,7 @@ export const SingleSuggestion = ({ user }: { user: IUser }) => {
     >
       <Link
         className="w-full text-sm leading-none hover:underline text-muted-foreground"
-        to={`/profile/${user.id}/${user.username}`}
+        to={`/profile/${user.id}`}
       >
         <div className="flex items-center gap-2">
           <Avatar className="lg:block h-10 w-10 border border-border ">

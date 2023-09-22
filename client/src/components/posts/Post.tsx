@@ -15,6 +15,7 @@ import { PostModal } from './PostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePostLike } from '@/services/postService';
 import { dateFormatter } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 export const Post = ({
   post,
@@ -57,7 +58,9 @@ export const Post = ({
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col md:flex-row gap-2">
-                <p className="text-sm">{post.user.username}</p>
+                <Link className="text-sm" to={`/profile/${post.userId}`}>
+                  {post.user.username}
+                </Link>
                 <p className="text-sm text-muted-foreground">
                   {dateFormatter(post.createdAt.toString())}
                 </p>

@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCommentFromPost } from '@/services/commentService';
 import { dateFormatter } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 export const Comment = ({ comment }: { comment: IComment }) => {
   const { state } = useAuth();
   const queryClient = useQueryClient();
@@ -31,7 +32,12 @@ export const Comment = ({ comment }: { comment: IComment }) => {
 
         <div>
           <div className="flex">
-            <p className="text-sm text-primary">{comment.user.username}</p>
+            <Link
+              className="text-sm text-primary"
+              to={`/profile/${comment.userId}`}
+            >
+              {comment.user.username}
+            </Link>
             <p className="text-sm text-muted-foreground">
               · {dateFormatter(comment.createdAt.toString())}
             </p>
