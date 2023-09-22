@@ -77,13 +77,17 @@ export const Searchbar = () => {
             />
           </form>
         </Form>
-        <PopoverContent className="w-[300px] p-0" align="start">
+        <PopoverContent
+          className="w-[300px] p-2"
+          align="start"
+          alignOffset={-5}
+        >
           {mutation.data?.length === 0 ? (
             <div>No users found.</div>
           ) : (
             <div>
               {mutation.data?.map((user) => (
-                <SingleSuggestion user={user} />
+                <SingleSuggestion user={user} key={user.id} />
               ))}
             </div>
           )}

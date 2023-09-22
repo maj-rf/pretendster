@@ -4,6 +4,12 @@ import { Post } from '../posts/Post';
 import { CommentForm } from '../comments/CommentForm';
 
 export const PostList = ({ data }: { data: IPost[] }) => {
+  if (data.length === 0)
+    return (
+      <div className="text-center text-primary">
+        No posts. Please create a post or follow someone.
+      </div>
+    );
   return (
     <>
       {data.map((post) => {
