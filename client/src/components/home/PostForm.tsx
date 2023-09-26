@@ -13,6 +13,8 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createPost } from '@/services/postService';
+import { Textarea } from '../ui/textarea';
+import { DialogFooter } from '../ui/dialog';
 // import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/utils';
 
 /** *
@@ -42,7 +44,11 @@ const formSchema = z.object({
 //     });
 // };
 
-export const PostForm = () => {
+type CreatePostProps = {
+  closeModal: () => void;
+};
+
+export const PostForm = (props: CreatePostProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +64,7 @@ export const PostForm = () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       form.reset();
+      props.closeModal();
     },
   });
 
@@ -70,26 +77,33 @@ export const PostForm = () => {
     mutation.mutate(formData);
   }
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="grid gap-4 w-full"
-        encType="multipart/form-data"
-      >
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Create A Post</FormLabel>
-              <FormControl>
-                <Input placeholder="What is on your mind?" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 items-end">
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-4 w-full"
+          encType="multipart/form-data"
+          id="create-post-form"
+        >
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="sr-only">Create A Post</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="What's on your mind?"
+                    {...field}
+                    className="pr-14 resize-none"
+                    rows={6}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="image"
@@ -113,12 +127,20 @@ export const PostForm = () => {
               </FormItem>
             )}
           />
-
-          <Button disabled={mutation.isLoading} type="submit">
-            {mutation.isLoading ? 'Submitting...' : 'Submit'}
-          </Button>
-        </div>
-      </form>
-    </Form>
+        </form>
+      </Form>
+      <DialogFooter className="gap-2">
+        <Button variant="outline" onClick={props.closeModal}>
+          Cancel
+        </Button>
+        <Button
+          disabled={mutation.isLoading}
+          type="submit"
+          form="create-post-form"
+        >
+          {mutation.isLoading ? 'Submitting...' : 'Submit'}
+        </Button>
+      </DialogFooter>
+    </>
   );
 };
