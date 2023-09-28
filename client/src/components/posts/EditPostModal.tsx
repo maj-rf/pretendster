@@ -20,7 +20,7 @@ const formSchema = z.object({
   content: z.string().min(3, { message: 'Must be at least 3 characters.' }),
 });
 
-export const EditPostTab = (props: PostModalProps) => {
+export const EditPostModal = (props: PostModalProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
