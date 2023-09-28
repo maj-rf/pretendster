@@ -17,6 +17,7 @@ import { updatePostLike, deletePost } from '@/services/postService';
 import { dateFormatter } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Loading } from '../Loading';
 
 export const Post = ({
   post,
@@ -130,7 +131,7 @@ export const Post = ({
             onClick={() => deleteMutation.mutate(post.id)}
             disabled={deleteMutation.isLoading ? true : false}
           >
-            Delete
+            {deleteMutation.isLoading ? <Loading /> : 'Delete'}
           </Button>
         </PopoverContent>
         <DialogContent>

@@ -1,6 +1,7 @@
 import { Comment } from './Comment';
 import { useQuery } from '@tanstack/react-query';
 import { getCommentsFromPost } from '@/services/commentService';
+import { Loading } from '../Loading';
 
 type CommentsProps = {
   postId: string;
@@ -14,8 +15,8 @@ export const Comments = (props: CommentsProps) => {
 
   if (isLoading)
     return (
-      <div className="p-3 bg-secondary text-muted-foreground transition-all duration-300">
-        loading...
+      <div className="grid place-items-center">
+        <Loading />
       </div>
     );
   if (!data) return <div>Invalid</div>;

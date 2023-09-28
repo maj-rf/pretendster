@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { Loading } from '../Loading';
 
 const formSchema = z.object({
   content: z.string().min(3, { message: 'Must be at least 3 characters.' }),
@@ -74,7 +75,7 @@ export const EditPostModal = (props: PostModalProps) => {
               Cancel
             </Button>
             <Button disabled={mutation.isLoading ? true : false}>
-              {mutation.isLoading ? 'Updating...' : 'Update'}
+              {mutation.isLoading ? <Loading /> : 'Update'}
             </Button>
           </DialogFooter>
         </form>

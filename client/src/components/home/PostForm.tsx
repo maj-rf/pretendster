@@ -15,6 +15,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createPost } from '@/services/postService';
 import { Textarea } from '../ui/textarea';
 import { DialogFooter } from '../ui/dialog';
+import { Loading } from '../Loading';
 // import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/utils';
 
 /** *
@@ -138,7 +139,7 @@ export const PostForm = (props: CreatePostProps) => {
           type="submit"
           form="create-post-form"
         >
-          {mutation.isLoading ? 'Submitting...' : 'Submit'}
+          {mutation.isLoading ? <Loading /> : 'Submit'}
         </Button>
       </DialogFooter>
     </>

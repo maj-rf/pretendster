@@ -15,6 +15,7 @@ import { Plus, UserMinus, UserPlus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { followUser, unfollowUser } from '@/services/userService';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { Loading } from '../Loading';
 
 export const AvatarContainer = ({ data }: { data: IUser }) => {
   const { state } = useAuth();
@@ -80,10 +81,14 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
                 size="sm"
                 className="flex gap-1"
               >
-                <UserMinus />
-                <span className="hidden lg:block">
-                  {unfollow.isLoading ? 'Unfollowing...' : 'Unfollow'}
-                </span>
+                {unfollow.isLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <UserMinus />
+                    <span className="hidden lg:block">Unfollow</span>
+                  </>
+                )}
               </Button>
             ) : (
               <Button
@@ -92,10 +97,14 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
                 size="sm"
                 className="flex gap-1"
               >
-                <UserPlus />
-                <span className="hidden lg:block">
-                  {follow.isLoading ? 'Following...' : 'Follow'}
-                </span>
+                {follow.isLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <UserPlus />
+                    <span className="hidden lg:block">Follow</span>
+                  </>
+                )}
               </Button>
             )}
           </div>

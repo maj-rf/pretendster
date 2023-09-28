@@ -16,6 +16,7 @@ import { Button } from '../ui/button';
 import { IUser } from '@/types/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAboutProfile } from '@/services/userService';
+import { Loading } from '../Loading';
 
 const formSchema = z.object({
   location: z.string(),
@@ -52,7 +53,6 @@ export const EditFormModal = (props: EditFormModalProps) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const id = user.id;
     aboutMutation.mutate({ update: values, id });
-    console.log(values);
   }
 
   return (
@@ -108,8 +108,12 @@ export const EditFormModal = (props: EditFormModalProps) => {
         <Button variant="outline" onClick={closeModal}>
           Cancel
         </Button>
-        <Button type="submit" form="about-form">
-          Save Changes
+        <Button
+          type="submit"
+          form="about-form"
+          disabled={aboutMutation.isLoading ? true : false}
+        >
+          {aboutMutation.isLoading ? <Loading /> : 'Save Changes'}
         </Button>
       </DialogFooter>
     </>
