@@ -13,6 +13,9 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createPost } from '@/services/postService';
+import { Textarea } from '../ui/textarea';
+import { DialogFooter } from '../ui/dialog';
+import { Loading } from '../Loading';
 // import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/utils';
 
 /** *
@@ -42,7 +45,11 @@ const formSchema = z.object({
 //     });
 // };
 
-export const PostForm = () => {
+type CreatePostProps = {
+  closeModal: () => void;
+};
+
+export const PostForm = (props: CreatePostProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +65,7 @@ export const PostForm = () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       form.reset();
+      props.closeModal();
     },
   });
 
@@ -70,61 +78,70 @@ export const PostForm = () => {
     mutation.mutate(formData);
   }
   return (
-    <div className="snap-start">
+    <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid gap-4 w-full"
           encType="multipart/form-data"
+          id="create-post-form"
         >
           <FormField
             control={form.control}
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Create A Post</FormLabel>
+                <FormLabel className="sr-only">Create A Post</FormLabel>
                 <FormControl>
-                  <Input placeholder="What is on your mind?" {...field} />
+                  <Textarea
+                    placeholder="What's on your mind?"
+                    {...field}
+                    className="pr-14 resize-none"
+                    rows={6}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex gap-4 items-center justify-end">
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field: { value, onChange, ...field } }) => (
-                <FormItem>
-                  <FormLabel className="sr-only">Upload</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="w-fit file:rounded-lg file:bg-primary file:text-primary-foreground"
-                      type="file"
-                      {...field}
-                      value={value.fileName}
-                      id="image"
-                      onChange={(event) => {
-                        if (event.target.files)
-                          return onChange(event.target.files[0]);
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <Button
-              className="w-fit"
-              disabled={mutation.isLoading}
-              type="submit"
-            >
-              {mutation.isLoading ? 'Submitting...' : 'Submit'}
-            </Button>
-          </div>
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field: { value, onChange, ...field } }) => (
+              <FormItem>
+                <FormLabel className="sr-only">Upload</FormLabel>
+                <FormControl>
+                  <Input
+                    className="file:rounded-lg file:bg-primary file:text-primary-foreground"
+                    type="file"
+                    {...field}
+                    value={value.fileName}
+                    id="image"
+                    onChange={(event) => {
+                      if (event.target.files)
+                        return onChange(event.target.files[0]);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
-    </div>
+      <DialogFooter className="gap-2">
+        <Button variant="outline" onClick={props.closeModal}>
+          Cancel
+        </Button>
+        <Button
+          disabled={mutation.isLoading}
+          type="submit"
+          form="create-post-form"
+        >
+          {mutation.isLoading ? <Loading /> : 'Submit'}
+        </Button>
+      </DialogFooter>
+    </>
   );
 };

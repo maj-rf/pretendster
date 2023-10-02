@@ -50,3 +50,8 @@ export type NewUserCredentials = {
 
 export type AboutMe = Pick<IUser, 'username' | 'location' | 'status' | 'bio'>;
 export type UsernameAndImg = Pick<IUser, 'username' | 'profileImg' | 'id'>;
+
+export type PostModalProps = {
+  closeModal: () => void;
+  post: IPost;
+};

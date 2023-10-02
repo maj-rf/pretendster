@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUsers } from '@/services/userService';
+import { getSuggestions } from '@/services/userService';
 import { SuggestionSkeleton } from './SuggestionSkeleton';
 import { SingleSuggestion } from './SingleSuggestion';
 
 export const Suggestions = () => {
   const query = useQuery({
     queryKey: ['users'],
-    queryFn: getUsers,
+    queryFn: getSuggestions,
   });
 
   if (query.isLoading) return <SuggestionSkeleton />;

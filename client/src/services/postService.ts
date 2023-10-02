@@ -25,3 +25,8 @@ export const getYourPosts = async (userId: string): Promise<IPost[]> => {
   const { data } = await api.get(`/posts/all/${userId}`);
   return data;
 };
+
+export const updatePost = async (obj: { postId: string; content: string }) => {
+  const { data } = await api.patch(`/posts/post/${obj.postId}`, obj);
+  return data;
+};

@@ -103,7 +103,11 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
         <Button variant="outline" onClick={closeModal}>
           Cancel
         </Button>
-        <Button type="submit" form="profile-pic-form">
+        <Button
+          type="submit"
+          form="profile-pic-form"
+          disabled={mutation.isLoading}
+        >
           Upload
         </Button>
       </DialogFooter>

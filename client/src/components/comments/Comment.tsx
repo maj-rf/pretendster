@@ -4,6 +4,8 @@ import { Trash2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCommentFromPost } from '@/services/commentService';
+import { dateFormatter } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 export const Comment = ({ comment }: { comment: IComment }) => {
   const { state } = useAuth();
   const queryClient = useQueryClient();
@@ -15,8 +17,6 @@ export const Comment = ({ comment }: { comment: IComment }) => {
       });
     },
   });
-
-  console.log(comment.postId);
 
   return (
     <article className="flex flex-col border-l border-l-emerald-300 p-1 relative">
@@ -31,8 +31,18 @@ export const Comment = ({ comment }: { comment: IComment }) => {
         </Avatar>
 
         <div>
-          <h2 className="text-muted-foreground">{comment.user.username}</h2>
-          <p className="text-primary">{comment.content}</p>
+          <div className="flex">
+            <Link
+              className="text-sm text-primary"
+              to={`/profile/${comment.userId}`}
+            >
+              {comment.user.username}
+            </Link>
+            <p className="text-sm text-muted-foreground">
+              · {dateFormatter(comment.createdAt.toString())}
+            </p>
+          </div>
+          <p className="text-sm text-primary">{comment.content}</p>
         </div>
       </div>
       {state.user?.id === comment.userId ? (

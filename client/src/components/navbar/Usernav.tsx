@@ -59,7 +59,7 @@ export const Usernav = ({ user }: { user: PublicUser }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to={`/profile/${user.id}/${user.username}`}>
+            <Link to={`/profile/${user.id}`}>
               <User className="mr-2 h-6 w-6" />
               <span>Profile</span>
             </Link>

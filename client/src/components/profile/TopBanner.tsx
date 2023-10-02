@@ -13,7 +13,7 @@ export const TopBanner = ({ data }: { data: IUser }) => {
         alt={data.username + 'background'}
         className="w-full h-full object-cover aspect-video object-center"
       />
-      <div className="absolute right-[1rem] bottom-[1rem]">
+      <div className="absolute right-[1rem] top-[1rem]">
         {state?.user?.id === data.id ? (
           <Button className="space-x-1">
             <Camera />

@@ -19,6 +19,11 @@ export const getUsers = async (): Promise<IUser[]> => {
   return data;
 };
 
+export const getSuggestions = async (): Promise<IUser[]> => {
+  const { data } = await api.get('/users/suggestions');
+  return data;
+};
+
 export const followUser = async (userId: string): Promise<IUser> => {
   const { data } = await api.patch(`users/user/${userId}/follow`);
   return data;
@@ -37,5 +42,10 @@ export const updateProfilePic = async (obj: {
     `users/profile/${obj.userId}/picture`,
     obj.update,
   );
+  return data;
+};
+
+export const searchUsers = async (search: string): Promise<IUser[]> => {
+  const { data } = await api.get(`users/search/${search}`);
   return data;
 };

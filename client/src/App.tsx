@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { Profile } from './pages/Profile';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { NotFound } from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -17,13 +18,14 @@ const router = createBrowserRouter([
         <Layout />
       </ProtectedRoute>
     ),
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
         element: <Home />,
       },
       {
-        path: '/profile/:id/:username',
+        path: '/profile/:id/',
         element: <Profile />,
       },
     ],
