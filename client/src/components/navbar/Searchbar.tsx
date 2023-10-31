@@ -58,7 +58,7 @@ export const Searchbar = () => {
                     <Input
                       placeholder="Search Pretendster"
                       {...field}
-                      className="pl-7"
+                      className="pl-7 h-8 w-full"
                       type="search"
                     />
                   </FormControl>
@@ -68,7 +68,7 @@ export const Searchbar = () => {
                       variant="ghost"
                       className="absolute left-1 top-0 p-0 h-fit"
                     >
-                      <Search />
+                      <Search size={16} />
                     </Button>
                   </PopoverTrigger>
                   <FormMessage />

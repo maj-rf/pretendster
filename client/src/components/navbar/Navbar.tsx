@@ -11,7 +11,7 @@ export const Navbar = () => {
     <>
       {state.user ? (
         <header className="grow shadow-sm shadow-accent z-10">
-          <nav className="container mx-auto px-6 py-3 flex items-center justify-between">
+          <nav className="container mx-auto px-3 md:px-6 py-3 flex items-center justify-between">
             <div className="text-xl font-bold flex items-center gap-2">
               <Dog />
               <span className="hidden md:block">Pretendster</span>
