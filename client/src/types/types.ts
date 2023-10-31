@@ -32,6 +32,8 @@ export interface IUser {
   followerIDs: string[];
   followingIDs: string[];
   posts: IPost[];
+  followers: PublicUser[];
+  follows: PublicUser[];
 }
 
 export type PublicUser = Pick<
