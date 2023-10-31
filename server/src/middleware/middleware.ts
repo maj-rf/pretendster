@@ -6,6 +6,7 @@ import { PublicUser } from '../types/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { uploadToCloud } from '../utils/uploadConfig';
 import { bufferToDataURI } from '../utils/uploadConfig';
+import rateLimit from 'express-rate-limit';
 
 export const unknownEndpoint = (
   req: Request,
@@ -82,3 +83,8 @@ export const uploadImage = async (
 
   next();
 };
+
+export const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});

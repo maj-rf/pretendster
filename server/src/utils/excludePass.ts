@@ -11,4 +11,6 @@ export const excludePass = {
   followerIDs: true,
   followingIDs: true,
   likedPostIDs: true,
+  followers: true,
+  follows: true,
 };
