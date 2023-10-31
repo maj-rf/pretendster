@@ -12,6 +12,7 @@ import { authRouter } from './routes/auth';
 import { userRouter } from './routes/user';
 import { postRouter } from './routes/post';
 import { commentRouter } from './routes/comment';
+import { CLOUD_NAME } from './config/config';
 const app = express();
 
 const limiter = rateLimit({
@@ -25,7 +26,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(compression());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        'script-src': ["'self'"],
+        'style-src': ["'self'"],
+        imgSrc: [
+          "'self'",
+          'blob:',
+          'data:',
+          `https://res.cloudinary.com/${CLOUD_NAME}}/`,
+        ],
+      },
+    },
+  }),
+);
 app.use(limiter);
 
 app.use('/api/v1/auth', authRouter);
