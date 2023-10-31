@@ -5,7 +5,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth';
@@ -14,11 +13,6 @@ import { postRouter } from './routes/post';
 import { commentRouter } from './routes/comment';
 import { CLOUD_NAME } from './config/config';
 const app = express();
-
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-});
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -41,9 +35,9 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   }),
 );
-app.use(limiter);
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', middleware.verifyJWT, userRouter);
