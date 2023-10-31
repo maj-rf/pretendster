@@ -11,11 +11,12 @@ import { authRouter } from './routes/auth';
 import { userRouter } from './routes/user';
 import { postRouter } from './routes/post';
 import { commentRouter } from './routes/comment';
+import { corsOptions } from './config/config';
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -34,6 +35,7 @@ app.use(
           'https://*.freepik.com/',
           'https://*.pravatar.cc/',
           'https://*.shopifycdn.com/',
+          'https://*.dicebear.com/',
         ],
       },
     },
