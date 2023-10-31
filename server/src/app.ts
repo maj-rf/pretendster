@@ -35,10 +35,10 @@ app.use('/api/v1/comments', middleware.verifyJWT, commentRouter);
 
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
   app.get('*', (_req: Request, res: Response) =>
-    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html')),
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html')),
   );
 } else {
   app.get('/', (_req, res) => {
