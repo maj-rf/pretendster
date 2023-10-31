@@ -11,7 +11,7 @@ import { authRouter } from './routes/auth';
 import { userRouter } from './routes/user';
 import { postRouter } from './routes/post';
 import { commentRouter } from './routes/comment';
-import { CLOUD_NAME } from './config/config';
+
 const app = express();
 
 app.use(morgan('dev'));
@@ -30,7 +30,10 @@ app.use(
           "'self'",
           'blob:',
           'data:',
-          `https://res.cloudinary.com/${CLOUD_NAME}}/`,
+          'https://*.cloudinary.com',
+          'https://*.freepik.com/',
+          'https://*.pravatar.cc/',
+          'https://*.shopifycdn.com/',
         ],
       },
     },
