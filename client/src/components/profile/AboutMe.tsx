@@ -11,6 +11,7 @@ import {
   DialogDescription,
   DialogHeader,
 } from '../ui/dialog';
+import { PopoverFollow } from './PopoverFollow';
 import { EditFormModal } from './EditFormModal';
 import { useState } from 'react';
 export const AboutMe = ({ data }: { data: IUser }) => {
@@ -39,11 +40,23 @@ export const AboutMe = ({ data }: { data: IUser }) => {
         </div>
         <div className="flex items-center">
           <Users className="mr-2 h-6 w-6" />
-          <span>Followed by {followers}</span>
+          <div>
+            <PopoverFollow data={data.followers}>
+              <Button variant="ghost" className="underline p-0">
+                Followed by {followers}
+              </Button>
+            </PopoverFollow>
+          </div>
         </div>
         <div className="flex items-center">
           <Users className="mr-2 h-6 w-6" />
-          <span>Follows {following}</span>
+          <div>
+            <PopoverFollow data={data.follows}>
+              <Button variant="ghost" className=" underline p-0">
+                Follows {following}
+              </Button>
+            </PopoverFollow>
+          </div>
         </div>
         <div className="flex items-center justify-start">
           <p className="bg-accent text-center font-semibold">
