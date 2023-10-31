@@ -40,6 +40,7 @@ app.use(
         ],
       },
     },
+    crossOriginEmbedderPolicy: false,
   }),
 );
 app.use(limiter);
