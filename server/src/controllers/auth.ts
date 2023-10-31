@@ -21,7 +21,23 @@ export const register = async (req: Request, res: Response) => {
       username,
       email,
       password: passwordHash,
+      followingIDs: [
+        '64bdd46f54522d04587b8cd3',
+        '64e2ba2b2970f3eb62f2c2ce',
+        '64b4960c850a33c43d2faa65',
+      ],
     },
+  });
+
+  await db.user.updateMany({
+    where: {
+      OR: [
+        { id: '64bdd46f54522d04587b8cd3' },
+        { id: '64e2ba2b2970f3eb62f2c2ce' },
+        { id: '64b4960c850a33c43d2faa65' },
+      ],
+    },
+    data: { followerIDs: { push: user.id } },
   });
   signAccessToken(res, {
     username: user.username,
@@ -29,14 +45,12 @@ export const register = async (req: Request, res: Response) => {
     email: user.email,
     profileImg: user.profileImg,
   });
-  res
-    .status(200)
-    .json({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      profileImg: user.profileImg,
-    });
+  res.status(200).json({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    profileImg: user.profileImg,
+  });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -59,14 +73,12 @@ export const login = async (req: Request, res: Response) => {
     email: user.email,
     profileImg: user.profileImg,
   });
-  res
-    .status(200)
-    .json({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      profileImg: user.profileImg,
-    });
+  res.status(200).json({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    profileImg: user.profileImg,
+  });
 };
 
 export const logout = async (req: Request, res: Response) => {
