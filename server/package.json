@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "tsc && node dist/index.js",
-    "dev": "nodemon --files ./src/index.ts",
+    "start": "cross-env NODE_ENV=production tsc && node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --files ./src/index.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ."
   },
@@ -27,6 +27,7 @@
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "nodemon": "^2.0.22",
