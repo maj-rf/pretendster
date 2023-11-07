@@ -9,14 +9,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/api/v1': {
-        target: 'https://liham-api.adaptable.app/api/v1',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/api\/v1/, ''),
-      },
-    },
-  },
 });
