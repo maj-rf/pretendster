@@ -8,11 +8,7 @@ export const CLOUD_NAME = process.env.CLOUD_NAME || 'cloud_name';
 export const CLOUD_API_KEY = process.env.CLOUD_API_KEY || 'cloud_key';
 export const CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || 'cloud_secret';
 
-const allowedOrigins = [
-  `https://localhost:${PORT}`,
-  'https://pretendster-mono.onrender.com/',
-  'https://pretendster-app.netlify.app/',
-];
+const allowedOrigins = ['https://pretendster-app.netlify.app/'];
 
 export const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins,
