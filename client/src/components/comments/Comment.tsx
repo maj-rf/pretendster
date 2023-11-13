@@ -1,5 +1,4 @@
 import { IComment } from '@/types/types';
-import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import { Trash2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
