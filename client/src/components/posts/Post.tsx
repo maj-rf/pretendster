@@ -71,7 +71,11 @@ export const Post = ({
               </div>
               {state.user?.id === post.userId ? (
                 <PopoverTrigger asChild>
-                  <Button className="w-fit rounded-sm" variant="ghost">
+                  <Button
+                    className="w-fit rounded-sm"
+                    variant="ghost"
+                    size="icon"
+                  >
                     <MoreVertical />
                   </Button>
                 </PopoverTrigger>

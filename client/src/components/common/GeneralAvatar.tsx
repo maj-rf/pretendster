@@ -21,7 +21,7 @@ export const GeneralAvatar = ({
       <AvatarImage
         src={profileImg}
         alt={`${username}'s picture`}
-        className={cn('object-cover object-top', imgClass)}
+        className={cn('object-fill', imgClass)}
       />
       <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
       {children}
