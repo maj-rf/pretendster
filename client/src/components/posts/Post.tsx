@@ -7,7 +7,6 @@ import {
   CardHeader,
 } from '@/components/ui/card';
 import { IPost } from '@/types/types';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
@@ -18,6 +17,7 @@ import { dateFormatter } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Loading } from '../Loading';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 
 export const Post = ({
   post,
@@ -56,16 +56,10 @@ export const Post = ({
           <CardHeader>
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage
-                    src={post.user.profileImg}
-                    alt={`${post.user.username}'s avatar`}
-                    className="w-10 h-10 rounded-full object-cover object-top"
-                  />
-                  <AvatarFallback>
-                    {post.user.username.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+                <GeneralAvatar
+                  profileImg={post.user.profileImg}
+                  username={post.user.username}
+                />
                 <div className="flex flex-col md:flex-row gap-2">
                   <Link className="text-sm" to={`/profile/${post.userId}`}>
                     {post.user.username}

@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCommentFromPost } from '@/services/commentService';
 import { dateFormatter } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 export const Comment = ({ comment }: { comment: IComment }) => {
   const { state } = useAuth();
   const queryClient = useQueryClient();
@@ -21,17 +22,13 @@ export const Comment = ({ comment }: { comment: IComment }) => {
   return (
     <article className="flex flex-col border-l border-l-emerald-300 p-1 relative">
       <div className="flex items-center gap-2">
-        <Avatar className="self-start">
-          <AvatarImage
-            src={comment.user.profileImg}
-            alt={`${comment.user.username}'s avatar`}
-            className="w-10 h-10 rounded-full object-cover object-top"
-          />
-          <AvatarFallback>{comment.user.username}</AvatarFallback>
-        </Avatar>
-
+        <GeneralAvatar
+          avatarClass="self-start"
+          username={comment.user.username}
+          profileImg={comment.user.profileImg}
+        />
         <div>
-          <div className="flex">
+          <div className="flex gap-2">
             <Link
               className="text-sm text-primary"
               to={`/profile/${comment.userId}`}
@@ -39,7 +36,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
               {comment.user.username}
             </Link>
             <p className="text-sm text-muted-foreground">
-              · {dateFormatter(comment.createdAt.toString())}
+              {` · ${dateFormatter(comment.createdAt.toString())}`}
             </p>
           </div>
           <p className="text-sm text-primary">{comment.content}</p>

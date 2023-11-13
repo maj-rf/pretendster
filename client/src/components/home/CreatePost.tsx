@@ -1,6 +1,6 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '../ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 import {
   Dialog,
   DialogContent,
@@ -18,16 +18,11 @@ export const CreatePost = () => {
   return (
     <Dialog open={showCreatePost} onOpenChange={setShowCreatePost}>
       <section className="flex gap-2">
-        <Avatar>
-          <AvatarImage
-            src={state.user?.profileImg}
-            alt={`${state.user?.username}'s avatar`}
-            className="w-10 h-10 rounded-full object-cover object-top"
-          />
-          <AvatarFallback>
-            {state.user?.username.substring(0, 2)}
-          </AvatarFallback>
-        </Avatar>
+        <GeneralAvatar
+          username={state.user ? state.user.username : ''}
+          profileImg={state.user ? state.user.profileImg : ''}
+        />
+
         <DialogTrigger asChild>
           <Button className="w-full" variant="secondary">
             What's on your mind?
