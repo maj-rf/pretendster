@@ -32,7 +32,7 @@ const formSchema = z.object({
     )
     .refine(
       (file: File) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+      'Only .jpg, .jpeg, .png, .gif, and .webp formats are supported.',
     ),
 });
 

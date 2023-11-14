@@ -39,7 +39,7 @@ export const updateProfilePic = async (req: Request, res: Response) => {
   const updated = await db.user.update({
     where: { id: userId },
     data: {
-      profileImg: res.locals.imageDetails?.url,
+      profileImg: res.locals.imageDetails?.secure_url,
     },
     select: excludePass,
   });

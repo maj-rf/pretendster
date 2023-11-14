@@ -1,5 +1,4 @@
 import { IUser } from '@/types/types';
-import { AvatarImage, Avatar, AvatarFallback } from '../ui/avatar';
 import {
   Dialog,
   DialogContent,
@@ -16,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { followUser, unfollowUser } from '@/services/userService';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { Loading } from '../Loading';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 
 export const AvatarContainer = ({ data }: { data: IUser }) => {
   const { state } = useAuth();
@@ -49,12 +49,11 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
       <Dialog open={showPicModal} onOpenChange={setShowPicModal}>
         <div className="flex items-center">
           <div className="group">
-            <Avatar className="w-28 h-auto border-4 relative">
-              <AvatarImage
-                src={data.profileImg}
-                className="object-cover object-top"
-              />
-              <AvatarFallback>{data.username.slice(0, 2)}</AvatarFallback>
+            <GeneralAvatar
+              profileImg={data.profileImg}
+              username={data.username}
+              avatarClass="w-28 h-auto border-4 relative"
+            >
               {state.user?.id === data.id ? (
                 <DialogTrigger asChild>
                   <Button
@@ -65,7 +64,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
                   </Button>
                 </DialogTrigger>
               ) : null}
-            </Avatar>
+            </GeneralAvatar>
           </div>
 
           <div className="flex items-center gap-4 translate-y-8">

@@ -11,6 +11,7 @@ export const ACCEPTED_IMAGE_TYPES = [
   'image/jpg',
   'image/png',
   'image/webp',
+  'image/gif',
 ];
 
 export const dateFormatter = (date: string | undefined) => {

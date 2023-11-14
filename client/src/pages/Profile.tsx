@@ -19,7 +19,7 @@ export const Profile = () => {
   return (
     <section>
       <TopBanner data={data} />
-      <div className="grid grid-cols-1 md:grid-cols-9 container mx-auto h-[calc(100vh-14rem)] py-8 overflow-y-scroll scroll-list relative">
+      <div className="grid grid-cols-1 md:grid-cols-9 h-full max-w-6xl mx-auto p-4 relative">
         <AboutMe data={data} />
         <ProfilePosts data={data} />
       </div>

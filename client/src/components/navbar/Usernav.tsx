@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { AvatarImage, Avatar, AvatarFallback } from '../ui/avatar';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 import { User, LogOut, Home } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -32,13 +32,10 @@ export const Usernav = ({ user }: { user: PublicUser }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative rounded-full w-10 h-10">
-          <Avatar className="w-10 h-10">
-            <AvatarImage
-              src={user.profileImg}
-              className="object-cover object-top"
-            />
-            <AvatarFallback></AvatarFallback>
-          </Avatar>
+          <GeneralAvatar
+            username={user.username}
+            profileImg={user.profileImg}
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" className="w-screen max-w-md mt-2">
