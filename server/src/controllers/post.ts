@@ -37,20 +37,20 @@ export const updateLike = async (req: Request, res: Response) => {
   const post = await db.post.findUnique({ where: { id: postId } });
   if (!post) throw createHttpError(401, 'Post not found');
   if (post.likes.includes(userId)) {
-    await db.post.update({
+    const updated = await db.post.update({
       where: { id: postId },
       data: {
         likes: post.likes.filter((id) => id !== userId),
       },
     });
-    return res.json({ message: 'Unliked!' });
+    return res.json(updated);
   }
 
-  await db.post.update({
+  const updated = await db.post.update({
     where: { id: postId },
     data: { likes: post.likes.concat(userId) },
   });
-  res.json({ message: 'Liked!' });
+  res.json(updated);
 };
 
 export const getAllPosts = async (req: Request, res: Response) => {
