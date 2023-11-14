@@ -11,12 +11,14 @@ export const SingleSuggestion = ({ user }: { user: PublicUser }) => {
         className="w-full leading-none hover:underline text-muted-foreground"
         to={`/profile/${user.id}`}
       >
-        <div className="flex flex-col md:flex-row items-center gap-2">
+        <div className="flex flex-col md:flex-row items-center gap-2 w-20 md:w-full">
           <GeneralAvatar
             username={user.username}
             profileImg={user.profileImg}
           />
-          <p className="text-xs md:text-sm">{user.username}</p>
+          <p className="truncate w-full text-xs md:text-sm text-center md:text-left">
+            {user.username}
+          </p>
         </div>
       </Link>
     </article>

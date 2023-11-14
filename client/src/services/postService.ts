@@ -16,7 +16,7 @@ export const deletePost = async (postId: string) => {
   return data;
 };
 
-export const updatePostLike = async (postId: string) => {
+export const updatePostLike = async (postId: string): Promise<IPost> => {
   const { data } = await api.patch(`/posts/post/like/${postId}`);
   return data;
 };

@@ -32,8 +32,22 @@ export const Post = ({
   const queryClient = useQueryClient();
   const likeMutation = useMutation({
     mutationFn: updatePostLike,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    onSuccess: (data, id) => {
+      // invalidate only the liked post and the profile post
+      queryClient.setQueryData(['posts'], (oldPosts: IPost[] | undefined) => {
+        if (oldPosts) {
+          return oldPosts.map((post) => {
+            if (post.id === id) {
+              post.likes = data.likes;
+            }
+            return post;
+          });
+        }
+        return oldPosts;
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['posts', { id: data.userId }],
+      });
     },
   });
   const deleteMutation = useMutation({
@@ -92,6 +106,7 @@ export const Post = ({
             ) : null}
             {post.content}
           </CardContent>
+          <hr></hr>
           <CardFooter className="flex justify-between p-0">
             <Button
               className="basis-1/3 space-x-4 rounded-tr-none rounded-br-none"
