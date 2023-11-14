@@ -49,9 +49,9 @@ app.use('/api/v1/users', middleware.verifyJWT, userRouter);
 app.use('/api/v1/posts', middleware.verifyJWT, postRouter);
 app.use('/api/v1/comments', middleware.verifyJWT, commentRouter);
 
-app.get('/', (_req, res) => {
-  res.json({ message: 'welcome to pretendster' });
-});
+// app.get('/', (_req, res) => {
+//   res.json({ message: 'welcome to pretendster' });
+// });
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, 'dist')));
