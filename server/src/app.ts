@@ -1,12 +1,11 @@
-// import express, { Request, Response } from 'express';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import * as middleware from './middleware/middleware';
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
-// import path from 'path';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/user';
@@ -53,18 +52,18 @@ app.use('/api/v1/comments', middleware.verifyJWT, commentRouter);
 app.get('/', (_req, res) => {
   res.json({ message: 'welcome to pretendster' });
 });
-// if (process.env.NODE_ENV === 'production') {
-//   const __dirname = path.resolve();
-//   app.use(express.static(path.join(__dirname, 'dist')));
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, 'dist')));
 
-//   app.get('*', (_req: Request, res: Response) =>
-//     res.sendFile(path.resolve(__dirname, 'dist', 'index.html')),
-//   );
-// } else {
-//   app.get('/', (_req, res) => {
-//     res.json({ message: 'welcome to pretendster' });
-//   });
-// }
+  app.get('*', (_req: Request, res: Response) =>
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html')),
+  );
+} else {
+  app.get('/', (_req, res) => {
+    res.json({ message: 'welcome to pretendster' });
+  });
+}
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
