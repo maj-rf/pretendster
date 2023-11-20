@@ -57,9 +57,9 @@ export const Searchbar = () => {
                 <FormItem className="relative">
                   <FormControl>
                     <Input
-                      placeholder="Search Pretendster"
+                      placeholder="Search Pretendster..."
                       {...field}
-                      className="pl-7 h-8 w-full"
+                      className="pl-7 h-8 w-full placeholder:text-primary"
                       type="search"
                     />
                   </FormControl>

@@ -23,7 +23,7 @@ export const Comments = (props: CommentsProps) => {
 
   return (
     <div>
-      <h1 className="text-primary text-xl font-semibold tracking-tight mb-2">
+      <h1 className="text-xl font-semibold tracking-tight mb-2">
         {data.length === 1 ? '1 Comment' : `${data.length} Comments`}
       </h1>
       <div className="flex flex-col gap-2">

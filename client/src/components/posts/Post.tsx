@@ -78,7 +78,7 @@ export const Post = ({
                   <Link className="text-sm" to={`/profile/${post.userId}`}>
                     {post.user.username}
                   </Link>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-primary">
                     {dateFormatter(post.createdAt.toString())}
                   </p>
                 </div>

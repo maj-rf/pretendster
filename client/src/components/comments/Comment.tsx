@@ -28,17 +28,14 @@ export const Comment = ({ comment }: { comment: IComment }) => {
         />
         <div>
           <div className="flex gap-2">
-            <Link
-              className="text-sm text-primary"
-              to={`/profile/${comment.userId}`}
-            >
+            <Link className="text-sm" to={`/profile/${comment.userId}`}>
               {comment.user.username}
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-primary">
               {` · ${dateFormatter(comment.createdAt.toString())}`}
             </p>
           </div>
-          <p className="text-sm text-primary">{comment.content}</p>
+          <p className="text-sm">{comment.content}</p>
         </div>
       </div>
       {state.user?.id === comment.userId ? (

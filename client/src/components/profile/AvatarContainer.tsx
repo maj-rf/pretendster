@@ -68,7 +68,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
           </div>
 
           <div className="flex items-center gap-4 translate-y-8">
-            <div className="bg-secondary px-2 py-1 rounded-2xl font-medium border-2 border-primary">
+            <div className="bg-accent px-2 py-1 rounded-2xl font-medium">
               {data.username}
             </div>
             {data.id === state.user?.id ? null : data.followerIDs.includes(
