@@ -24,9 +24,7 @@ export const CreatePost = () => {
         />
 
         <DialogTrigger asChild>
-          <Button className="w-full" variant="secondary">
-            What's on your mind?
-          </Button>
+          <Button className="w-full">What's on your mind?</Button>
         </DialogTrigger>
       </section>
       <DialogContent>

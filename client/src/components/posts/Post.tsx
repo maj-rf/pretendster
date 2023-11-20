@@ -114,7 +114,11 @@ export const Post = ({
               disabled={likeMutation.isLoading}
               variant="ghost"
             >
-              <ThumbsUp className={checkLikes() ? 'fill-blue-600' : ''} />{' '}
+              <ThumbsUp
+                className={
+                  checkLikes() ? 'fill-blue-600 transition-all scale-110 ' : ''
+                }
+              />{' '}
               <span>{post.likes.length}</span>
             </Button>
             <Button

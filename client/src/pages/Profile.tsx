@@ -18,10 +18,11 @@ export const Profile = () => {
   return (
     <section>
       <TopBanner data={data} />
-      <div>
-        <div className="w-24 flex gap-8 justify-center mx-auto py-4">
+      <div className="flex justify-center my-auto p-8">
+        <div className="bg-secondary py-1 px-2 rounded-lg shadow-md border-b-3 border-r-3">
           <NavLink
-            to={`/profile/${data.id}/`}
+            to={`/profile/${data.id}`}
+            end
             className={({ isActive }) =>
               cn('px-2 py-1', isActive ? 'underline text-blue-500' : undefined)
             }
