@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ThumbsUp, MoreVertical } from 'lucide-react';
+import { ThumbsUp, MoreHorizontal } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -67,7 +67,7 @@ export const Post = ({
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <Popover>
         <Card>
-          <CardHeader>
+          <CardHeader className="p-4">
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <GeneralAvatar
@@ -90,21 +90,21 @@ export const Post = ({
                     variant="ghost"
                     size="icon"
                   >
-                    <MoreVertical />
+                    <MoreHorizontal />
                   </Button>
                 </PopoverTrigger>
               ) : null}
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
+            <p className="p-4">{post.content}</p>
             {post.postImg ? (
               <img
                 src={post.postImg}
                 alt={post.postImg}
-                className="w-fit h-auto"
+                className="object-cover"
               />
             ) : null}
-            {post.content}
           </CardContent>
           <hr></hr>
           <CardFooter className="flex justify-between p-0">
