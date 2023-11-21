@@ -6,8 +6,12 @@ The server & client for my Pretendster Social Media app.
 
 Live URLs
 
-- Client: https://pretendster-app.netlify.app/
-- Server: https://pretendster-api.adaptable.app
+- [Render](https://pretendster-mono.onrender.com/)
+
+Previews
+
+![imgur-mobile](https://i.imgur.com/p9GZbKT.png)
+![imgur-web](https://i.imgur.com/Bc2cEVo.png)
 
 ## REST API Endpoints
 
@@ -73,8 +77,11 @@ Technologies:
 
 ## Setup for ENV variables
 
-- MONGO_URI=<URI used to connect to a production MongoDB database>
-- TEST_MONGO_URI=<URI used to connect to a test MongoDB database>
-- PORT=<Your server port, ex: 3003>
-- ACCESS_TOKEN_SECRET=<Secret for your access tokens>
-- REFRESH_TOKEN_SECRET=<Secret for your refresh tokens>
+Check .env.example
+
+- DATABASE_URL="YOUR_DB_URL"
+- PORT=5000
+- ACCESS_TOKEN="SECRET_FOR_JWT"
+- CLOUD_NAME="CLOUDINARY_NAME"
+- CLOUD_API_KEY="CLOUDINARY_KEY"
+- CLOUD_API_SECRET="CLOUDINARY_SECRET"
