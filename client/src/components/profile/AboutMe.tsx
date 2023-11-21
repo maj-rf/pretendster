@@ -11,7 +11,6 @@ import {
   DialogDescription,
   DialogHeader,
 } from '../ui/dialog';
-import { PopoverFollow } from './PopoverFollow';
 import { EditFormModal } from './EditFormModal';
 import { useState } from 'react';
 export const AboutMe = ({ data }: { data: IUser }) => {
@@ -27,7 +26,7 @@ export const AboutMe = ({ data }: { data: IUser }) => {
       : `${data.followingIDs.length} people`;
 
   return (
-    <div className="col-span-3 bg-secondary rounded-md p-4 h-fit relative md:sticky md:top-0 space-y-4">
+    <div className="col-span-full md:col-span-3 border rounded-md p-4 h-fit relative md:sticky md:top-0 space-y-4">
       <Dialog open={showEditProfile} onOpenChange={setShowEditProfile}>
         <h1 className="text-2xl font-bold">About Me</h1>
         <div className="flex items-center">
@@ -40,38 +39,26 @@ export const AboutMe = ({ data }: { data: IUser }) => {
         </div>
         <div className="flex items-center">
           <Users className="mr-2 h-6 w-6" />
-          <div>
-            <PopoverFollow data={data.followers}>
-              <Button variant="ghost" className="underline p-0">
-                Followed by {followers}
-              </Button>
-            </PopoverFollow>
-          </div>
+          <div>Followed by {followers}</div>
         </div>
         <div className="flex items-center">
           <Users className="mr-2 h-6 w-6" />
-          <div>
-            <PopoverFollow data={data.follows}>
-              <Button variant="ghost" className=" underline p-0">
-                Follows {following}
-              </Button>
-            </PopoverFollow>
-          </div>
+          <div>Follows {following}</div>
         </div>
         <div className="flex items-center justify-start">
-          <p className="bg-accent text-center font-semibold">
+          <p className="text-center font-semibold italic">
             {data.bio ?? 'Be cheerful. Strive to be happy. -Desiderata'}
           </p>
         </div>
         {state?.user?.id === data.id ? (
           <DialogTrigger
             asChild
-            className="absolute top-4 right-8 md:top-0 md:right-4"
+            className="absolute top-0 right-8 md:top-0 md:right-4"
           >
             {/* <Button onClick={() => setShowModal(true)} className="space-x-1"> */}
             <Button className="space-x-1">
               <Pencil />
-              <span className="hidden lg:block">Edit Profile</span>
+              <span className="hidden lg:block">Edit Bio</span>
             </Button>
           </DialogTrigger>
         ) : null}

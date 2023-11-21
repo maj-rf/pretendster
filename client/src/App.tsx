@@ -9,6 +9,8 @@ import { AuthProvider } from './context/AuthContext';
 import { Profile } from './pages/Profile';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NotFound } from './pages/NotFound';
+import { ProfilePosts } from './components/profile/ProfilePosts';
+import { BaseFollow } from './components/profile/BaseFollow';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,20 @@ const router = createBrowserRouter([
       {
         path: '/profile/:id/',
         element: <Profile />,
+        children: [
+          {
+            index: true,
+            element: <ProfilePosts />,
+          },
+          {
+            path: '/profile/:id/followers',
+            element: <BaseFollow title={'Followers'} />,
+          },
+          {
+            path: '/profile/:id/following',
+            element: <BaseFollow title={'Following'} />,
+          },
+        ],
       },
     ],
   },

@@ -15,7 +15,7 @@ export const PostList = ({ data }: { data: IPost[] }) => {
       {data.map((post) => {
         return (
           <Post key={post.id} post={post}>
-            <div className="p-3 bg-secondary text-muted-foreground transition-all duration-300">
+            <div className="p-3">
               <Comments postId={post.id} />
               <CommentForm postId={post.id} />
             </div>

@@ -62,11 +62,12 @@ export const login = async (req: Request, res: Response) => {
       email: email,
     },
   });
-  if (!user) throw createHttpError(401, 'Email not found.');
+
   const passwordCorrect = user
     ? await bcrypt.compare(password, user.password)
     : false;
-  if (!passwordCorrect) throw createHttpError(401, 'Incorrect password.');
+  if (!user || !passwordCorrect)
+    throw createHttpError(401, 'Incorrect email or password.');
   signAccessToken(res, {
     username: user.username,
     id: user.id,

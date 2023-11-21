@@ -3,13 +3,14 @@ import { IPost, IUser } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getYourPosts } from '@/services/postService';
 import { PostsSkeleton } from '../home/PostsSkeleton';
+import { useOutletContext } from 'react-router-dom';
 
 /**
  * TODO: props.data already includes user posts. Might not need to fetch again
  *
  */
 
-export const ProfilePosts = ({ data }: { data: IUser }) => {
+export const ProfilePosts = () => {
   // const updatedPosts: IPost[] = data.posts.map((post) => {
   //   return {
   //     ...post,
@@ -20,6 +21,7 @@ export const ProfilePosts = ({ data }: { data: IUser }) => {
   //     },
   //   };
   // });
+  const [data]: IUser[] = useOutletContext();
   const query = useQuery({
     queryKey: ['posts', { id: data.id }],
     queryFn: () => getYourPosts(data.id),
@@ -44,7 +46,7 @@ export const ProfilePosts = ({ data }: { data: IUser }) => {
   });
 
   return (
-    <div className="col-span-6 md:px-6 py-2">
+    <>
       {data.posts.length === 0 ? (
         <div>
           <h1 className="text-2xl font-bold text-muted-foreground">
@@ -61,6 +63,6 @@ export const ProfilePosts = ({ data }: { data: IUser }) => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };

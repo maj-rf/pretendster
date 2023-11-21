@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { SingleSuggestion } from '../home/SingleSuggestion';
+import { Loading } from '../Loading';
 
 const formSchema = z.object({
   query: z.string(),
@@ -56,9 +57,9 @@ export const Searchbar = () => {
                 <FormItem className="relative">
                   <FormControl>
                     <Input
-                      placeholder="Search Pretendster"
+                      placeholder="Search Pretendster..."
                       {...field}
-                      className="pl-7 h-8 w-full"
+                      className="pl-7 h-8 w-full placeholder:text-primary"
                       type="search"
                     />
                   </FormControl>
@@ -82,7 +83,11 @@ export const Searchbar = () => {
           align="start"
           alignOffset={-5}
         >
-          {mutation.data?.length === 0 ? (
+          {mutation.isLoading ? (
+            <div className="flex items-center justify-center">
+              <Loading />
+            </div>
+          ) : mutation.data?.length === 0 ? (
             <div>No users found.</div>
           ) : (
             <div>
