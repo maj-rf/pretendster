@@ -16,6 +16,7 @@ import { Github } from 'lucide-react';
 import { register } from '@/services/authService';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 const formSchema = z
   .object({
@@ -53,6 +54,14 @@ export const RegisterForm = () => {
     onSuccess: (payload) => {
       dispatch({ type: 'login', payload });
       navigate('/');
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        form.setError('email', {
+          type: 'server',
+          message: err.response?.data.error,
+        });
+      }
     },
   });
 

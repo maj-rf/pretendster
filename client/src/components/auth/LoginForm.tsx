@@ -17,6 +17,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '@/hooks/useAuth';
 import { login } from '@/services/authService';
 import { Loading } from '../Loading';
+import { AxiosError } from 'axios';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Must be a valid email address' }),
@@ -39,6 +40,18 @@ export const LoginForm = () => {
     onSuccess: (payload) => {
       dispatch({ type: 'login', payload });
       navigate('/');
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        form.setError('email', {
+          type: 'server',
+          message: err.response?.data.error,
+        });
+        form.setError('password', {
+          type: 'server',
+          message: err.response?.data.error,
+        });
+      }
     },
   });
 
