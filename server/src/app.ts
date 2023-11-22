@@ -66,5 +66,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(middleware.unknownEndpoint);
-app.use(middleware.errorHandler);
+if (process.env.NODE_ENV === 'development') app.use(middleware.errorHandler);
 export default app;
