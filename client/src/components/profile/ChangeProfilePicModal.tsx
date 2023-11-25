@@ -17,7 +17,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfilePic } from '@/services/userService';
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
-
+import { useState } from 'react';
+import { GeneralAvatar } from '../common/GeneralAvatar';
 type ChangeProfilePicModalProps = {
   closeModal: () => void;
   user: IUser;
@@ -39,6 +40,7 @@ const formSchema = z.object({
 export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
   const { user, closeModal } = props;
   const { dispatch } = useAuth();
+  const [image, setImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: updateProfilePic,
@@ -73,9 +75,17 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
           id="profile-pic-form"
         >
           <div className="flex flex-col gap-4 items-center justify-end">
+            {image ? (
+              <GeneralAvatar
+                profileImg={image}
+                username="Uploaded Img"
+                avatarClass="w-28 h-auto border-4 relative"
+              />
+            ) : null}
             <FormField
               control={form.control}
               name="image"
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               render={({ field: { value, onChange, ...field } }) => (
                 <FormItem>
                   <FormLabel className="sr-only">Upload</FormLabel>
@@ -87,8 +97,10 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
                       value={value.fileName}
                       id="image"
                       onChange={(event) => {
-                        if (event.target.files)
-                          return onChange(event.target.files[0]);
+                        if (event.target.files) {
+                          onChange(event.target.files[0]);
+                          setImage(URL.createObjectURL(event.target.files[0]));
+                        }
                       }}
                     />
                   </FormControl>

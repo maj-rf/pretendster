@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCommentFromPost } from '@/services/commentService';
-import { dateFormatter } from '@/lib/utils';
+import { timeSince } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { GeneralAvatar } from '../common/GeneralAvatar';
 export const Comment = ({ comment }: { comment: IComment }) => {
@@ -32,7 +32,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
               {comment.user.username}
             </Link>
             <p className="text-sm text-primary">
-              {` · ${dateFormatter(comment.createdAt.toString())}`}
+              {` ${timeSince(new Date(comment.createdAt))}`}
             </p>
           </div>
           <p className="text-sm">{comment.content}</p>

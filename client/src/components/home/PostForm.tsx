@@ -16,6 +16,7 @@ import { createPost } from '@/services/postService';
 import { Textarea } from '../ui/textarea';
 import { DialogFooter } from '../ui/dialog';
 import { Loading } from '../Loading';
+import { useState } from 'react';
 // import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/utils';
 
 /** *
@@ -50,6 +51,7 @@ type CreatePostProps = {
 };
 
 export const PostForm = (props: CreatePostProps) => {
+  const [image, setImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -86,6 +88,15 @@ export const PostForm = (props: CreatePostProps) => {
           encType="multipart/form-data"
           id="create-post-form"
         >
+          <div className="justify-self-center">
+            {image ? (
+              <img
+                src={image}
+                alt="post-upload-img"
+                className="w-28 h-auto relative"
+              />
+            ) : null}
+          </div>
           <FormField
             control={form.control}
             name="content"
@@ -119,8 +130,10 @@ export const PostForm = (props: CreatePostProps) => {
                     value={value.fileName}
                     id="image"
                     onChange={(event) => {
-                      if (event.target.files)
-                        return onChange(event.target.files[0]);
+                      if (event.target.files) {
+                        onChange(event.target.files[0]);
+                        setImage(URL.createObjectURL(event.target.files[0]));
+                      }
                     }}
                   />
                 </FormControl>
