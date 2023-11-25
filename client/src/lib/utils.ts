@@ -14,16 +14,29 @@ export const ACCEPTED_IMAGE_TYPES = [
   'image/gif',
 ];
 
-export const dateFormatter = (date: string | undefined) => {
-  if (typeof date === 'undefined') return date;
-  const rtf = new Intl.RelativeTimeFormat('en', {
-    localeMatcher: 'best fit',
-    numeric: 'auto',
-    style: 'long',
-  });
-  const calc = (Date.parse(date) - Date.now()) / (1000 * 60 * 60 * 24);
-  const diff = Math.floor(calc);
-  return diff >= -1 && diff < 0
-    ? rtf.format(0, 'day')
-    : rtf.format(diff, 'days');
+export const timeSince = (date: Date) => {
+  const d = new Date();
+  const seconds = Math.floor((d.getTime() - date.getTime()) / 1000);
+  let interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + 'y';
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + 'm';
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + 'd';
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + 'h';
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + 'min';
+  }
+  return Math.floor(seconds) + 's';
 };

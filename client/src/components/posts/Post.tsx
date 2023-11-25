@@ -13,7 +13,7 @@ import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { EditPostModal } from './EditPostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePostLike, deletePost } from '@/services/postService';
-import { dateFormatter } from '@/lib/utils';
+import { timeSince } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Loading } from '../Loading';
@@ -79,7 +79,7 @@ export const Post = ({
                     {post.user.username}
                   </Link>
                   <p className="text-sm text-primary">
-                    {dateFormatter(post.createdAt.toString())}
+                    {timeSince(new Date(post.createdAt))}
                   </p>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export const Post = ({
               <img
                 src={post.postImg}
                 alt={post.postImg}
-                className="object-cover"
+                className="object-cover mx-auto"
               />
             ) : null}
           </CardContent>
