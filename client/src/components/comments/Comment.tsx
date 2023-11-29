@@ -35,7 +35,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
               {` ${timeSince(new Date(comment.createdAt))}`}
             </p>
           </div>
-          <p className="text-sm">{comment.content}</p>
+          <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
         </div>
       </div>
       {state.user?.id === comment.userId ? (

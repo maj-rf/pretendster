@@ -19,7 +19,7 @@ import { SingleSuggestion } from '../home/SingleSuggestion';
 import { Loading } from '../Loading';
 
 const formSchema = z.object({
-  query: z.string(),
+  query: z.string().min(1, 'Minimum of 1 character.'),
 });
 
 export const Searchbar = () => {

@@ -97,7 +97,7 @@ export const Post = ({
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <p className="p-4">{post.content}</p>
+            <p className="p-4 whitespace-pre-wrap">{post.content}</p>
             {post.postImg ? (
               <img
                 src={post.postImg}
