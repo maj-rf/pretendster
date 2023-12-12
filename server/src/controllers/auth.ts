@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { db } from '../utils/db';
 import createHttpError from 'http-errors';
 import { signAccessToken } from '../utils/signJWT';
+import { excludePass } from '../utils/excludePass';
 
 export const register = async (req: Request, res: Response) => {
   const { username, email, password, passConfirm } = req.body;
@@ -91,4 +92,14 @@ export const logout = async (req: Request, res: Response) => {
       expires: new Date(0),
     })
     .json({ message: 'Successfully logged out!' });
+};
+
+export const getAuthUser = async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const currentUser = await db.user.findUnique({
+    where: { id: userId },
+    select: excludePass,
+  });
+  if (!currentUser) throw createHttpError(401, 'User not found');
+  res.json(currentUser);
 };
