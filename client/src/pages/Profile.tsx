@@ -26,7 +26,7 @@ export const Profile = () => {
             className={({ isActive }) =>
               cn(
                 'px-2 py-1 h-full',
-                isActive ? 'underline text-sky-500' : undefined,
+                isActive ? 'bg-background rounded-md' : undefined,
               )
             }
           >
@@ -35,7 +35,10 @@ export const Profile = () => {
           <NavLink
             to={`/profile/${data.id}/followers`}
             className={({ isActive }) =>
-              cn('px-2 py-1', isActive ? 'underline text-sky-500' : undefined)
+              cn(
+                'px-2 py-1 h-full',
+                isActive ? 'bg-background rounded-md' : undefined,
+              )
             }
           >
             Followers
@@ -43,7 +46,10 @@ export const Profile = () => {
           <NavLink
             to={`/profile/${data.id}/following`}
             className={({ isActive }) =>
-              cn('px-2 py-1', isActive ? 'underline text-sky-500' : undefined)
+              cn(
+                'px-2 py-1 h-full',
+                isActive ? 'bg-background rounded-md' : undefined,
+              )
             }
           >
             Following

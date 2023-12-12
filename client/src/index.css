@@ -20,8 +20,8 @@ body {
     --border: 222 20% 70%;
     --input: 222 20% 70%;
 
-    --card: 220 16% 96%;
-    --card-foreground: 222 20% 16%;
+    --card: 220 40% 95%;
+    --card-foreground: 222 40% 16%;
 
     --primary: 222 20% 70%;
     --primary-foreground: 220 16% 96%;
@@ -55,8 +55,8 @@ body {
     --border: 222 20% 40%;
     --input: 222 20% 40%;
 
-    --card: 220 16% 16%;
-    --card-foreground: 222 20% 96%;
+    --card: 220 50% 10%;
+    --card-foreground: 222 60% 96%;
 
     --primary: 222 20% 65%;
     --primary-foreground: 220 16% 16%;

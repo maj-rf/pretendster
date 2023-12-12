@@ -42,8 +42,9 @@ export const Suggestions = () => {
   if (query.isLoading) return <SuggestionSkeleton />;
   if (!query.data) return <div>Invalid</div>;
   return (
-    <section className="md:sticky top-2 block space-y-3 col-span-9 md:col-span-3 p-4 border rounded-xl h-fit">
-      <h1 className="text-center">Friend Suggestions</h1>
+    <section className="md:sticky top-2 block space-y-3 col-span-9 md:col-span-3 p-4 border rounded-xl h-fit bg-card">
+      <h1 className="text-center">New App Users</h1>
+      <hr className="w-full" />
       <div className="flex gap-2 md:block overflow-scroll sm:no-scroll scroll-list overflow-y-hidden p-1 md:p-0">
         {query.data.map((user) => {
           return <SingleSuggestion key={user.id} user={user} />;

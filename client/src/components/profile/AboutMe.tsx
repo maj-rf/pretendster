@@ -26,7 +26,7 @@ export const AboutMe = ({ data }: { data: IUser }) => {
       : `${data.followingIDs.length} people`;
 
   return (
-    <div className="col-span-full md:col-span-3 border rounded-md p-4 h-fit relative md:sticky md:top-0 space-y-4">
+    <div className="col-span-full md:col-span-3 border rounded-md p-4 h-fit relative md:sticky md:top-0 space-y-4 bg-card">
       <Dialog open={showEditProfile} onOpenChange={setShowEditProfile}>
         <h1 className="text-2xl font-bold">About Me</h1>
         <div className="flex items-center">

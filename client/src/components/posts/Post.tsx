@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ThumbsUp, MoreHorizontal } from 'lucide-react';
+import { ThumbsUp, MoreVertical, MessageCircle } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -66,7 +66,7 @@ export const Post = ({
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <Popover>
-        <Card>
+        <Card className="">
           <CardHeader className="p-4">
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export const Post = ({
                     variant="ghost"
                     size="icon"
                   >
-                    <MoreHorizontal />
+                    <MoreVertical />
                   </Button>
                 </PopoverTrigger>
               ) : null}
@@ -122,11 +122,12 @@ export const Post = ({
               <span>{post.likes.length}</span>
             </Button>
             <Button
-              className="basis-2/3 rounded-tl-none rounded-bl-none"
+              className="basis-2/3 space-x-4 rounded-tl-none rounded-bl-none"
               variant="ghost"
               onClick={() => setVisible(!visible)}
             >
-              Comments
+              <MessageCircle></MessageCircle>
+              <span> Comments</span>
             </Button>
           </CardFooter>
           {visible ? children : null}
