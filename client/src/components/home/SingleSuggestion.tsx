@@ -5,7 +5,7 @@ export const SingleSuggestion = ({ user }: { user: PublicUser }) => {
   return (
     <article
       key={user.id}
-      className="flex flex-col md:flex-row items-center justify-between hover:bg-primary-foreground p-1 rounded-md"
+      className="flex flex-col md:flex-row items-center justify-between p-1 rounded-md"
     >
       <Link
         className="w-full leading-none hover:underline text-muted-foreground"

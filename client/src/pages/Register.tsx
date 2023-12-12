@@ -1,17 +1,22 @@
 import { AppInfo } from '@/components/auth/AppInfo';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { ModeToggle } from '@/components/navbar/ModeToggle';
-import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Loading } from '@/components/Loading';
 
 export const Register = () => {
-  const { state } = useAuth();
-  const navigate = useNavigate();
+  const { state, isLoading } = useAuth();
 
-  useEffect(() => {
-    if (state.user) navigate('/');
-  }, [state.user, navigate]);
+  // redirect if user exists
+  if (isLoading)
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  if (state.user) return <Navigate to="/" />;
+
   return (
     <section className="max-w-5xl min-h-screen md:p-4 mx-auto grid md:grid-cols-2 md:place-items-center">
       <div className="relative h-full">
