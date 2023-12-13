@@ -60,13 +60,13 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="w-full h-full grid place-items-center">
+    <div className="w-full h-full grid place-items-center md:border-t md:border-b md:border-r md:rounded-tr-md md:rounded-br-md">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid gap-4 px-8 py-4 w-full"
         >
-          <h1 className="text-center">Welcome!</h1>
+          <h1 className="text-center font-semibold">Welcome to Pretendster!</h1>
           <FormField
             control={form.control}
             name="email"

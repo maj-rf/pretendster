@@ -24,7 +24,6 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
   const follow = useMutation({
     mutationFn: followUser,
     onSuccess: () => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['profile', { id: data.id }] });
       queryClient.invalidateQueries({
         queryKey: ['profile', { id: state.user?.id }],
@@ -36,7 +35,6 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
   const unfollow = useMutation({
     mutationFn: unfollowUser,
     onSuccess: () => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['profile', { id: data.id }] });
       queryClient.invalidateQueries({
         queryKey: ['profile', { id: state.user?.id }],
@@ -45,7 +43,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
     },
   });
   return (
-    <div className="container mx-auto flex items-center justify-between absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2">
+    <div className="max-w-5xl flex items-center justify-between absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2">
       <Dialog open={showPicModal} onOpenChange={setShowPicModal}>
         <div className="flex items-center">
           <div className="group">

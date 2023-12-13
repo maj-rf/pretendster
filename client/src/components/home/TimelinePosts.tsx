@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllPosts } from '@/services/postService';
 import { PostsSkeleton } from './PostsSkeleton';
 import { PostList } from '../posts/PostList';
+import { useAuth } from '@/hooks/useAuth';
 
 export const TimeLinePosts = () => {
+  const { state } = useAuth();
   const query = useQuery({
-    queryKey: ['posts'],
+    queryKey: ['posts', { id: state.user?.id }],
     queryFn: getAllPosts,
   });
 

@@ -21,7 +21,7 @@ export const Login = () => {
       <div className="relative h-full">
         <img
           src="https://burst.shopifycdn.com/photos/blue-nature.jpg?width=1850&format=pjpg&exif=1&iptc=1"
-          className="object-cover min-h-full aspect-video md:rounded-md"
+          className="object-cover min-h-full aspect-video md:rounded-tl-md md:rounded-bl-md"
         />
         <div className="absolute top-0 right-0 p-3">
           <ModeToggle />

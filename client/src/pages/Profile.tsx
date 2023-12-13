@@ -56,7 +56,7 @@ export const Profile = () => {
           </NavLink>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-9 h-full max-w-6xl px-4 mx-auto relative gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-9 h-full max-w-5xl px-4 mx-auto relative gap-6">
         <AboutMe data={data} />
         <div className="col-span-full md:col-span-6 pb-4">
           <Outlet context={[data]} />
