@@ -10,6 +10,8 @@ export const register = async (req: Request, res: Response) => {
   if (!username || !email || !password) {
     throw createHttpError(401, 'Please provide all fields');
   }
+  if (username.length > 20)
+    throw createHttpError(401, 'Username must be less than 20 characters.');
   if (password !== passConfirm) {
     throw createHttpError(401, 'Passwords do not match');
   }
@@ -23,9 +25,9 @@ export const register = async (req: Request, res: Response) => {
       email,
       password: passwordHash,
       followingIDs: [
-        '64bdd46f54522d04587b8cd3',
-        '64e2ba2b2970f3eb62f2c2ce',
-        '64b4960c850a33c43d2faa65',
+        '657905e6efeb3ec3d3b81e37',
+        '6579062fefeb3ec3d3b81e38',
+        '6579064fefeb3ec3d3b81e39',
       ],
     },
   });
@@ -33,9 +35,9 @@ export const register = async (req: Request, res: Response) => {
   await db.user.updateMany({
     where: {
       OR: [
-        { id: '64bdd46f54522d04587b8cd3' },
-        { id: '64e2ba2b2970f3eb62f2c2ce' },
-        { id: '64b4960c850a33c43d2faa65' },
+        { id: '657905e6efeb3ec3d3b81e37' },
+        { id: '6579062fefeb3ec3d3b81e38' },
+        { id: '6579064fefeb3ec3d3b81e39' },
       ],
     },
     data: { followerIDs: { push: user.id } },
