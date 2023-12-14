@@ -12,43 +12,21 @@ import { ChangeProfilePicModal } from './ChangeProfilePicModal';
 import { Button } from '../ui/button';
 import { Plus, UserMinus, UserPlus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { followUser, unfollowUser } from '@/services/userService';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { Loading } from '../Loading';
 import { GeneralAvatar } from '../common/GeneralAvatar';
+import { useFollow } from '@/hooks/useFollow';
 
 export const AvatarContainer = ({ data }: { data: IUser }) => {
   const { state } = useAuth();
   const [showPicModal, setShowPicModal] = useState(false);
-  const queryClient = useQueryClient();
-  const follow = useMutation({
-    mutationFn: followUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile', { id: data.id }] });
-      queryClient.invalidateQueries({
-        queryKey: ['profile', { id: state.user?.id }],
-      });
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
-
-  const unfollow = useMutation({
-    mutationFn: unfollowUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile', { id: data.id }] });
-      queryClient.invalidateQueries({
-        queryKey: ['profile', { id: state.user?.id }],
-      });
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
+  const { follow, unfollow } = useFollow(state.user?.id, data.id);
   return (
     <div className="max-w-5xl flex items-center justify-between absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2">
       <Dialog open={showPicModal} onOpenChange={setShowPicModal}>
         <div className="flex items-center">
           <div className="group">
             <GeneralAvatar
-              profileImg={data.profileImg}
+              profileImg={data.profileImg.url}
               username={data.username}
               avatarClass="w-28 h-auto border-4 relative"
             >

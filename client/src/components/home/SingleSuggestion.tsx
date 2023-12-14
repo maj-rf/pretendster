@@ -14,7 +14,7 @@ export const SingleSuggestion = ({ user }: { user: PublicUser }) => {
         <div className="flex flex-col md:flex-row items-center gap-2 w-20 md:w-full">
           <GeneralAvatar
             username={user.username}
-            profileImg={user.profileImg}
+            profileImg={user.profileImg.url}
           />
           <p className="truncate w-full text-xs md:text-sm text-center md:text-left">
             {user.username}

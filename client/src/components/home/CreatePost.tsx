@@ -20,7 +20,7 @@ export const CreatePost = () => {
       <section className="flex gap-2">
         <GeneralAvatar
           username={state.user ? state.user.username : ''}
-          profileImg={state.user ? state.user.profileImg : ''}
+          profileImg={state.user ? state.user.profileImg.url : ''}
         />
 
         <DialogTrigger asChild>

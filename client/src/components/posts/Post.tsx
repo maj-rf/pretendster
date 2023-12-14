@@ -11,13 +11,12 @@ import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { EditPostModal } from './EditPostModal';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updatePostLike, deletePost } from '@/services/postService';
 import { timeSince } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Loading } from '../Loading';
 import { GeneralAvatar } from '../common/GeneralAvatar';
+import { usePost } from '@/hooks/usePost';
 
 export const Post = ({
   post,
@@ -29,33 +28,7 @@ export const Post = ({
   const { state } = useAuth();
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
-  const queryClient = useQueryClient();
-  const likeMutation = useMutation({
-    mutationFn: updatePostLike,
-    onSuccess: (data, id) => {
-      // invalidate only the liked post and the profile post
-      queryClient.setQueryData(['posts'], (oldPosts: IPost[] | undefined) => {
-        if (oldPosts) {
-          return oldPosts.map((post) => {
-            if (post.id === id) {
-              post.likes = data.likes;
-            }
-            return post;
-          });
-        }
-        return oldPosts;
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['posts', { id: data.userId }],
-      });
-    },
-  });
-  const deleteMutation = useMutation({
-    mutationFn: deletePost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
+  const { likeMutation, deleteMutation } = usePost();
 
   const checkLikes = () => {
     if (state.user) {
@@ -71,7 +44,7 @@ export const Post = ({
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <GeneralAvatar
-                  profileImg={post.user.profileImg}
+                  profileImg={post.user.profileImg.url}
                   username={post.user.username}
                 />
                 <div className="flex flex-col md:flex-row gap-2">

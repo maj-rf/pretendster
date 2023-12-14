@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSuggestions } from '@/services/userService';
 import { SingleSuggestion } from './SingleSuggestion';
 import { Skeleton } from '../ui/skeleton';
+// import { useAuth } from '@/hooks/useAuth';
 
 const SuggestionSkeleton = () => {
   return (
@@ -34,8 +35,9 @@ const SuggestionSkeleton = () => {
 };
 
 export const Suggestions = () => {
+  // const { state } = useAuth();
   const query = useQuery({
-    queryKey: ['users'],
+    queryKey: ['profile', { type: 'suggestions' }],
     queryFn: getSuggestions,
   });
 
