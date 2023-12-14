@@ -24,24 +24,25 @@ export const register = async (req: Request, res: Response) => {
       username,
       email,
       password: passwordHash,
-      followingIDs: [
-        '657905e6efeb3ec3d3b81e37',
-        '6579062fefeb3ec3d3b81e38',
-        '6579064fefeb3ec3d3b81e39',
-      ],
+      // followingIDs: [
+      //   '657905e6efeb3ec3d3b81e37',
+      //   '6579062fefeb3ec3d3b81e38',
+      //   '6579064fefeb3ec3d3b81e39',
+      // ],
+      profileImg: {},
     },
   });
 
-  await db.user.updateMany({
-    where: {
-      OR: [
-        { id: '657905e6efeb3ec3d3b81e37' },
-        { id: '6579062fefeb3ec3d3b81e38' },
-        { id: '6579064fefeb3ec3d3b81e39' },
-      ],
-    },
-    data: { followerIDs: { push: user.id } },
-  });
+  // await db.user.updateMany({
+  //   where: {
+  //     OR: [
+  //       { id: '657905e6efeb3ec3d3b81e37' },
+  //       { id: '6579062fefeb3ec3d3b81e38' },
+  //       { id: '6579064fefeb3ec3d3b81e39' },
+  //     ],
+  //   },
+  //   data: { followerIDs: { push: user.id } },
+  // });
   signAccessToken(res, {
     username: user.username,
     id: user.id,
@@ -98,7 +99,7 @@ export const logout = async (req: Request, res: Response) => {
 
 export const getAuthUser = async (req: Request, res: Response) => {
   const userId = req.user.id;
-  const currentUser = await db.user.findUnique({
+  const currentUser = await db.user.findFirst({
     where: { id: userId },
     select: excludePass,
   });
