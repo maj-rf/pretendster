@@ -45,7 +45,7 @@ export const updateProfilePic = async (req: Request, res: Response) => {
     where: { id: userId },
     data: {
       profileImg: {
-        set: {
+        update: {
           url: res.locals.imageDetails?.secure_url,
           public_id: res.locals.imageDetails?.public_id,
         },
