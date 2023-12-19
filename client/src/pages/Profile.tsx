@@ -26,7 +26,7 @@ export const Profile = () => {
             className={({ isActive }) =>
               cn(
                 'px-2 py-1 h-full',
-                isActive ? 'underline text-sky-500' : undefined,
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
               )
             }
           >
@@ -35,7 +35,10 @@ export const Profile = () => {
           <NavLink
             to={`/profile/${data.id}/followers`}
             className={({ isActive }) =>
-              cn('px-2 py-1', isActive ? 'underline text-sky-500' : undefined)
+              cn(
+                'px-2 py-1 h-full',
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
+              )
             }
           >
             Followers
@@ -43,14 +46,17 @@ export const Profile = () => {
           <NavLink
             to={`/profile/${data.id}/following`}
             className={({ isActive }) =>
-              cn('px-2 py-1', isActive ? 'underline text-sky-500' : undefined)
+              cn(
+                'px-2 py-1 h-full',
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
+              )
             }
           >
             Following
           </NavLink>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-9 h-full max-w-6xl px-4 mx-auto relative gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-9 h-full max-w-5xl px-4 mx-auto relative gap-6">
         <AboutMe data={data} />
         <div className="col-span-full md:col-span-6 pb-4">
           <Outlet context={[data]} />

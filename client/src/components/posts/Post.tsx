@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ThumbsUp, MoreHorizontal } from 'lucide-react';
+import { ThumbsUp, MoreVertical, MessageCircle } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -11,13 +11,12 @@ import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { EditPostModal } from './EditPostModal';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updatePostLike, deletePost } from '@/services/postService';
 import { timeSince } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Loading } from '../Loading';
 import { GeneralAvatar } from '../common/GeneralAvatar';
+import { usePost } from '@/hooks/usePost';
 
 export const Post = ({
   post,
@@ -29,33 +28,7 @@ export const Post = ({
   const { state } = useAuth();
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
-  const queryClient = useQueryClient();
-  const likeMutation = useMutation({
-    mutationFn: updatePostLike,
-    onSuccess: (data, id) => {
-      // invalidate only the liked post and the profile post
-      queryClient.setQueryData(['posts'], (oldPosts: IPost[] | undefined) => {
-        if (oldPosts) {
-          return oldPosts.map((post) => {
-            if (post.id === id) {
-              post.likes = data.likes;
-            }
-            return post;
-          });
-        }
-        return oldPosts;
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['posts', { id: data.userId }],
-      });
-    },
-  });
-  const deleteMutation = useMutation({
-    mutationFn: deletePost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
+  const { likeMutation, deleteMutation } = usePost();
 
   const checkLikes = () => {
     if (state.user) {
@@ -71,14 +44,14 @@ export const Post = ({
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <GeneralAvatar
-                  profileImg={post.user.profileImg}
+                  profileImg={post.user.profileImg.url}
                   username={post.user.username}
                 />
-                <div className="flex flex-col md:flex-row gap-2">
+                <div className="flex gap-2">
                   <Link className="text-sm" to={`/profile/${post.userId}`}>
                     {post.user.username}
                   </Link>
-                  <p className="text-sm text-primary">
+                  <p className="text-sm text-muted-foreground">
                     {timeSince(new Date(post.createdAt))}
                   </p>
                 </div>
@@ -90,7 +63,7 @@ export const Post = ({
                     variant="ghost"
                     size="icon"
                   >
-                    <MoreHorizontal />
+                    <MoreVertical />
                   </Button>
                 </PopoverTrigger>
               ) : null}
@@ -122,11 +95,12 @@ export const Post = ({
               <span>{post.likes.length}</span>
             </Button>
             <Button
-              className="basis-2/3 rounded-tl-none rounded-bl-none"
+              className="basis-2/3 space-x-4 rounded-tl-none rounded-bl-none"
               variant="ghost"
               onClick={() => setVisible(!visible)}
             >
-              Comments
+              <MessageCircle></MessageCircle>
+              <span> Comments</span>
             </Button>
           </CardFooter>
           {visible ? children : null}

@@ -2,75 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  min-height: 100vh;
-}
-
 @layer base {
   :root {
-    --background: 220 16% 96%;
-    --foreground: 222 20% 16%;
+    /* body background */
+    /* --background: 0 0% 100%; */
+    --background: 0 0% 93.5%;
+    --foreground: 222.2 84% 4.9%;
 
-    --muted: 215 14% 80%;
-    --muted-foreground: 222 20% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 220 16% 96%;
-    --popover-foreground: 222 20% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --border: 222 20% 70%;
-    --input: 222 20% 70%;
+    /* buttons */
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --card: 220 16% 96%;
-    --card-foreground: 222 20% 16%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --primary: 222 20% 70%;
-    --primary-foreground: 220 16% 96%;
-
-    --secondary: 215 14% 80%;
-    --secondary-foreground: 222 20% 16%;
-
-    --accent: 215 14% 80%;
-    --accent-foreground: 222 20% 16%;
-
-    --destructive: 0 80% 50%;
-    --destructive-foreground: 222 20% 16%;
-
-    --ring: 222 20% 70%;
-
-    --radius: 0.5rem;
-
+    /* --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%; */
+    --border: 214.3 31.8% 86.4%;
+    --input: 214.3 31.8% 86.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
     --pt-underline: 120 100% 25%;
   }
 
   .dark {
-    --background: 220 16% 16%;
-    --foreground: 222 20% 96%;
-
-    --muted: 215 14% 25%;
-    --muted-foreground: 222 20% 96%;
-
-    --popover: 220 16% 16%;
-    --popover-foreground: 222 20% 96%;
-
-    --border: 222 20% 40%;
-    --input: 222 20% 40%;
-
-    --card: 220 16% 16%;
-    --card-foreground: 222 20% 96%;
-
-    --primary: 222 20% 65%;
-    --primary-foreground: 220 16% 16%;
-
-    --secondary: 215 14% 25%;
-    --secondary-foreground: 222 20% 96%;
-
-    --accent: 215 14% 25%;
-    --accent-foreground: 222 20% 96%;
-
-    --destructive: 0 80% 50%;
-    --destructive-foreground: 222 20% 96%;
-
-    --ring: 222 20% 40%;
+    /* --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%; */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%; */
+    --card: 222.2 50% 8.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
   }
 }
 
@@ -101,30 +91,62 @@ body {
     height: 0;
   }
 
-  /* .marquee {
-    animation: move-rtl 10s linear infinite;
-    overflow: hidden;
+  .speech-bubble {
     position: relative;
-    display: flex;
-    user-select: none;
-    gap: 1rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
+      0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
   }
 
-  .marquee-content {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-around;
-    gap: 1rem;
-    min-width: 100%;
-    max-width: fit-content;
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -0.6rem;
+    left: 0.25rem;
+    border: 0.75rem solid transparent;
+    border-top: none;
+    @apply border-b-primary;
+    filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
   }
 
-  @keyframes move-rtl {
-    from {
-      transform: translateX(0);
+  .box__bg {
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 12px;
+  }
+
+  .box__bg::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: linear-gradient(#070707, #687aff);
+    animation: bgRotate 3s linear infinite;
+  }
+
+  .box__bg::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 2.5px;
+    top: 2.5px;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    /* background: linear-gradient(#06021d, #06021d); */
+    @apply bg-gradient-to-r from-card to-card;
+    border-radius: 10px;
+  }
+
+  @keyframes bgRotate {
+    100% {
+      transform: rotate(1turn);
     }
-    to {
-      transform: translateX(calc(-100% - 1rem));
-    }
-  } */
+  }
 }

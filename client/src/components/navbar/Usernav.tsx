@@ -10,23 +10,12 @@ import {
 } from '../ui/dropdown-menu';
 import { GeneralAvatar } from '../common/GeneralAvatar';
 import { User, LogOut, Home } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/services/authService';
-import { useAuth } from '@/hooks/useAuth';
+import { Link } from 'react-router-dom';
 import { PublicUser } from '@/types/types';
+import { useLogout } from '@/hooks/useLogout';
 
 export const Usernav = ({ user }: { user: PublicUser }) => {
-  const { dispatch } = useAuth();
-  const navigate = useNavigate();
-
-  const mutation = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      dispatch({ type: 'logout' });
-      navigate('/login');
-    },
-  });
+  const mutation = useLogout();
 
   return (
     <DropdownMenu>
@@ -34,7 +23,7 @@ export const Usernav = ({ user }: { user: PublicUser }) => {
         <Button variant="ghost" className="relative rounded-full w-10 h-10">
           <GeneralAvatar
             username={user.username}
-            profileImg={user.profileImg}
+            profileImg={user.profileImg.url}
           />
         </Button>
       </DropdownMenuTrigger>

@@ -3,12 +3,15 @@ import bcrypt from 'bcrypt';
 import { db } from '../utils/db';
 import createHttpError from 'http-errors';
 import { signAccessToken } from '../utils/signJWT';
+import { excludePass } from '../utils/excludePass';
 
 export const register = async (req: Request, res: Response) => {
   const { username, email, password, passConfirm } = req.body;
   if (!username || !email || !password) {
     throw createHttpError(401, 'Please provide all fields');
   }
+  if (username.length > 20)
+    throw createHttpError(401, 'Username must be less than 20 characters.');
   if (password !== passConfirm) {
     throw createHttpError(401, 'Passwords do not match');
   }
@@ -21,24 +24,25 @@ export const register = async (req: Request, res: Response) => {
       username,
       email,
       password: passwordHash,
-      followingIDs: [
-        '64bdd46f54522d04587b8cd3',
-        '64e2ba2b2970f3eb62f2c2ce',
-        '64b4960c850a33c43d2faa65',
-      ],
+      // followingIDs: [
+      //   '657905e6efeb3ec3d3b81e37',
+      //   '6579062fefeb3ec3d3b81e38',
+      //   '6579064fefeb3ec3d3b81e39',
+      // ],
+      profileImg: {},
     },
   });
 
-  await db.user.updateMany({
-    where: {
-      OR: [
-        { id: '64bdd46f54522d04587b8cd3' },
-        { id: '64e2ba2b2970f3eb62f2c2ce' },
-        { id: '64b4960c850a33c43d2faa65' },
-      ],
-    },
-    data: { followerIDs: { push: user.id } },
-  });
+  // await db.user.updateMany({
+  //   where: {
+  //     OR: [
+  //       { id: '657905e6efeb3ec3d3b81e37' },
+  //       { id: '6579062fefeb3ec3d3b81e38' },
+  //       { id: '6579064fefeb3ec3d3b81e39' },
+  //     ],
+  //   },
+  //   data: { followerIDs: { push: user.id } },
+  // });
   signAccessToken(res, {
     username: user.username,
     id: user.id,
@@ -91,4 +95,14 @@ export const logout = async (req: Request, res: Response) => {
       expires: new Date(0),
     })
     .json({ message: 'Successfully logged out!' });
+};
+
+export const getAuthUser = async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const currentUser = await db.user.findFirst({
+    where: { id: userId },
+    select: excludePass,
+  });
+  if (!currentUser) throw createHttpError(401, 'User not found');
+  res.json(currentUser);
 };

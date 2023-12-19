@@ -23,7 +23,8 @@ const formSchema = z
     email: z.string().email({ message: 'Must be a valid email address' }),
     username: z
       .string()
-      .min(4, { message: 'Must be a minimum of 4 characters' }),
+      .min(4, { message: 'Must be a minimum of 4 characters' })
+      .max(20, { message: 'Maximum of 20 characters only.' }),
     password: z
       .string()
       .min(4, { message: 'Must be a minimum of 4 characters' }),
@@ -70,7 +71,7 @@ export const RegisterForm = () => {
   }
 
   return (
-    <div className="w-full h-full grid place-items-center">
+    <div className="w-full h-full grid place-items-center md:border-t md:border-b md:border-r md:rounded-tr-md md:rounded-br-md">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

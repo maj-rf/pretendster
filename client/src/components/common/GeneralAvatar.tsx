@@ -23,7 +23,9 @@ export const GeneralAvatar = ({
         alt={`${username}'s picture`}
         className={cn('object-fill', imgClass)}
       />
-      <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
+      <AvatarFallback className={cn('bg-secondary', avatarClass)}>
+        {username.slice(0, 2)}
+      </AvatarFallback>
       {children}
     </Avatar>
   );

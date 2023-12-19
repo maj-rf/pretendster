@@ -1,3 +1,8 @@
+export type ProfileImage = {
+  url: string;
+  public_id: string;
+};
+
 export interface IComment {
   id: string;
   content: string;
@@ -24,7 +29,7 @@ export interface IUser {
   email: string;
   username: string;
   password: string;
-  profileImg: string;
+  profileImg: ProfileImage;
   bannerImg: string;
   location: string | null;
   status: string | null;

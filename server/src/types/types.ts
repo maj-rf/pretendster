@@ -2,5 +2,8 @@ export interface PublicUser {
   username: string;
   email: string;
   id: string;
-  profileImg: string;
+  profileImg: {
+    url: string;
+    public_id: string;
+  };
 }

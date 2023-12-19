@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { db } from '../utils/db';
 import createHttpError from 'http-errors';
 import { excludePass } from '../utils/excludePass';
+import { deleteFromCloud } from '../utils/uploadConfig';
 export const getProfile = async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const currentUser = await db.user.findUnique({
@@ -36,10 +37,19 @@ export const updateProfilePic = async (req: Request, res: Response) => {
   // check if user exists
   const user = await db.user.findUnique({ where: { id: userId } });
   if (!user) throw createHttpError(401, 'User not found');
+  // delete existing image from cloudinary if it exists
+  if (user.profileImg.public_id !== 'default_lorelei_id') {
+    deleteFromCloud(user.profileImg.public_id);
+  }
   const updated = await db.user.update({
     where: { id: userId },
     data: {
-      profileImg: res.locals.imageDetails?.secure_url,
+      profileImg: {
+        set: {
+          url: res.locals.imageDetails?.secure_url,
+          public_id: res.locals.imageDetails?.public_id,
+        },
+      },
     },
     select: excludePass,
   });

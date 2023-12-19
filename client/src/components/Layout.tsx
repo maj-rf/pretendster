@@ -6,7 +6,7 @@ export const Layout = () => {
     <>
       <div className="flex flex-col justify-center leading-loose">
         <Navbar />
-        <main className="grow">
+        <main className="grow mt-16">
           <Outlet />
         </main>
       </div>

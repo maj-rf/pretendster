@@ -19,6 +19,7 @@ import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { useState } from 'react';
 import { GeneralAvatar } from '../common/GeneralAvatar';
+import { Loading } from '../Loading';
 type ChangeProfilePicModalProps = {
   closeModal: () => void;
   user: IUser;
@@ -47,6 +48,7 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
     onSuccess: (payload) => {
       dispatch({ type: 'pic-update', payload });
       queryClient.invalidateQueries(['profile', { id: user.id }]);
+      queryClient.invalidateQueries(['posts']);
       form.reset();
       closeModal();
     },
@@ -81,7 +83,9 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
                 username="Uploaded Img"
                 avatarClass="w-28 h-auto border-4 relative"
               />
-            ) : null}
+            ) : (
+              <div className="w-28 h-28 rounded-full border-4"></div>
+            )}
             <FormField
               control={form.control}
               name="image"
@@ -120,7 +124,7 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
           form="profile-pic-form"
           disabled={mutation.isLoading}
         >
-          Upload
+          {mutation.isLoading ? <Loading /> : 'Upload'}
         </Button>
       </DialogFooter>
     </>

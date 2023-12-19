@@ -6,6 +6,8 @@ import { deleteCommentFromPost } from '@/services/commentService';
 import { timeSince } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { GeneralAvatar } from '../common/GeneralAvatar';
+import { Button } from '../ui/button';
+
 export const Comment = ({ comment }: { comment: IComment }) => {
   const { state } = useAuth();
   const queryClient = useQueryClient();
@@ -19,39 +21,43 @@ export const Comment = ({ comment }: { comment: IComment }) => {
   });
 
   return (
-    <article className="flex flex-col border-l border-l-emerald-300 p-1 relative">
+    <article className="flex flex-col border-l border-l-muted-foreground p-1 relative">
       <div className="flex items-center gap-2">
         <GeneralAvatar
           avatarClass="self-start"
           username={comment.user.username}
-          profileImg={comment.user.profileImg}
+          profileImg={comment.user.profileImg.url}
         />
-        <div>
-          <div className="flex gap-2">
+        <div className="space-y-2">
+          <div className="flex gap-2 items-center">
             <Link className="text-sm" to={`/profile/${comment.userId}`}>
               {comment.user.username}
             </Link>
-            <p className="text-sm text-primary">
+            <p className="text-sm text-muted-foreground">
               {` ${timeSince(new Date(comment.createdAt))}`}
             </p>
+            {state.user?.id === comment.userId ? (
+              <Button
+                variant="ghost"
+                disabled={mutation.isLoading}
+                className="ml-auto text-destructive w-6 h-auto"
+                size="icon"
+                onClick={() =>
+                  mutation.mutate({
+                    postId: comment.postId,
+                    commentId: comment.id,
+                  })
+                }
+              >
+                <Trash2 />
+              </Button>
+            ) : null}
           </div>
-          <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
+          <p className="text-sm whitespace-pre-wrap p-2 rounded-md bg-primary text-white speech-bubble">
+            {comment.content}
+          </p>
         </div>
       </div>
-      {state.user?.id === comment.userId ? (
-        <button
-          className="absolute top-2 right-0"
-          disabled={mutation.isLoading}
-          onClick={() =>
-            mutation.mutate({
-              postId: comment.postId,
-              commentId: comment.id,
-            })
-          }
-        >
-          <Trash2 />
-        </button>
-      ) : null}
     </article>
   );
 };

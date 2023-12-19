@@ -5,7 +5,7 @@ export const BaseFollow = ({ title }: { title: string }) => {
   const [data]: IUser[] = useOutletContext();
   const dataToShow = title === 'Followers' ? data.followers : data.follows;
   return (
-    <div className="border p-4 rounded-md flex flex-col gap-4">
+    <div className="border p-4 rounded-md flex flex-col gap-4 bg-card">
       <h1 className="text-2xl font-bold">{title}</h1>
       {dataToShow.length === 0 ? (
         <div>No users found.</div>

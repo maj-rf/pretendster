@@ -11,23 +11,23 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  email        String    @unique
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  email        String       @unique
   username     String
   password     String
-  profileImg   String    @default("https://api.dicebear.com/6.x/lorelei/svg")
-  bannerImg    String    @default("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000")
+  profileImg   ProfileImage
+  bannerImg    String       @default("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000")
   location     String?
   status       String?
   bio          String?
   posts        Post[]
   Comment      Comment[]
-  followers    User[]    @relation("UserFollows", fields: [followerIDs], references: [id])
-  followerIDs  String[]  @db.ObjectId
-  follows      User[]    @relation("UserFollows", fields: [followingIDs], references: [id])
-  followingIDs String[]  @db.ObjectId
-  likedPostIDs String[]  @db.ObjectId
-  likedPosts   Post[]    @relation("UserLikes", fields: [likedPostIDs], references: [id])
+  followers    User[]       @relation("UserFollows", fields: [followerIDs], references: [id])
+  followerIDs  String[]     @db.ObjectId
+  follows      User[]       @relation("UserFollows", fields: [followingIDs], references: [id])
+  followingIDs String[]     @db.ObjectId
+  likedPostIDs String[]     @db.ObjectId
+  likedPosts   Post[]       @relation("UserLikes", fields: [likedPostIDs], references: [id])
 }
 
 model Post {
@@ -52,4 +52,9 @@ model Comment {
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+type ProfileImage {
+  url       String @default("https://api.dicebear.com/6.x/lorelei/svg")
+  public_id String @default("default_lorelei_id")
 }

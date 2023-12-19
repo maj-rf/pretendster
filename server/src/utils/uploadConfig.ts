@@ -25,5 +25,13 @@ export const uploadToCloud = async (
   return res;
 };
 
+export const deleteFromCloud = async (public_id: string) => {
+  const { uploader } = cloudinary;
+  const res = uploader.destroy(public_id, function (result) {
+    console.log(result);
+  });
+  return res;
+};
+
 export const bufferToDataURI = (fileFormat: string, buffer: Buffer) =>
   parser.format(fileFormat, buffer);

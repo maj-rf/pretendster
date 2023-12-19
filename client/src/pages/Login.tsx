@@ -2,22 +2,26 @@ import { AppInfo } from '@/components/auth/AppInfo';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { ModeToggle } from '@/components/navbar/ModeToggle';
 import { useAuth } from '@/hooks/useAuth';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Loading } from '@/components/Loading';
 export const Login = () => {
-  const { state } = useAuth();
-  const navigate = useNavigate();
+  const { state, isLoading } = useAuth();
 
-  useEffect(() => {
-    if (state.user) navigate('/');
-  }, [state.user, navigate]);
+  // redirect if user exists
+  if (isLoading)
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  if (state.user) return <Navigate to="/" />;
 
   return (
     <section className="max-w-5xl min-h-screen md:p-4 mx-auto grid md:grid-cols-2 md:place-items-center">
       <div className="relative h-full">
         <img
           src="https://burst.shopifycdn.com/photos/blue-nature.jpg?width=1850&format=pjpg&exif=1&iptc=1"
-          className="object-cover min-h-full aspect-video md:rounded-md"
+          className="object-cover min-h-full aspect-video md:rounded-tl-md md:rounded-bl-md"
         />
         <div className="absolute top-0 right-0 p-3">
           <ModeToggle />
