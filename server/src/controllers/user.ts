@@ -41,14 +41,15 @@ export const updateProfilePic = async (req: Request, res: Response) => {
   if (user.profileImg.public_id !== 'default_lorelei_id') {
     deleteFromCloud(user.profileImg.public_id);
   }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const updated = await db.user.update({
     where: { id: userId },
     data: {
       profileImg: {
-        update: {
-          url: res.locals.imageDetails?.secure_url,
-          public_id: res.locals.imageDetails?.public_id,
-        },
+        url: res.locals.imageDetails?.secure_url,
+        public_id: res.locals.imageDetails?.public_id,
       },
     },
     select: excludePass,

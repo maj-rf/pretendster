@@ -19,6 +19,9 @@ export const register = async (req: Request, res: Response) => {
   if (emailExists) throw createHttpError(400, 'Email is already in use.');
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const user = await db.user.create({
     data: {
       username,
@@ -29,10 +32,7 @@ export const register = async (req: Request, res: Response) => {
         '6579062fefeb3ec3d3b81e38',
         '6579064fefeb3ec3d3b81e39',
       ],
-      profileImg: {
-        url: '',
-        public_id: '',
-      },
+      profileImg: {} as any,
     },
   });
 
