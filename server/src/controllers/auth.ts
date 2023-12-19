@@ -19,33 +19,33 @@ export const register = async (req: Request, res: Response) => {
   if (emailExists) throw createHttpError(400, 'Email is already in use.');
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const user = await db.user.create({
     data: {
       username,
       email,
       password: passwordHash,
-      followingIDs: [
-        '657905e6efeb3ec3d3b81e37',
-        '6579062fefeb3ec3d3b81e38',
-        '6579064fefeb3ec3d3b81e39',
-      ],
-      profileImg: {} as any,
+      // followingIDs: [
+      //   '657905e6efeb3ec3d3b81e37',
+      //   '6579062fefeb3ec3d3b81e38',
+      //   '6579064fefeb3ec3d3b81e39',
+      // ],
+      profileImg: {
+        url: 'https://api.dicebear.com/6.x/lorelei/svg',
+        public_id: 'default_lorelei_id',
+      },
     },
   });
 
-  await db.user.updateMany({
-    where: {
-      OR: [
-        { id: '657905e6efeb3ec3d3b81e37' },
-        { id: '6579062fefeb3ec3d3b81e38' },
-        { id: '6579064fefeb3ec3d3b81e39' },
-      ],
-    },
-    data: { followerIDs: { push: user.id } },
-  });
+  // await db.user.updateMany({
+  //   where: {
+  //     OR: [
+  //       { id: '657905e6efeb3ec3d3b81e37' },
+  //       { id: '6579062fefeb3ec3d3b81e38' },
+  //       { id: '6579064fefeb3ec3d3b81e39' },
+  //     ],
+  //   },
+  //   data: { followerIDs: { push: user.id } },
+  // });
   signAccessToken(res, {
     username: user.username,
     id: user.id,

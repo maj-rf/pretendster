@@ -55,6 +55,6 @@ model Comment {
 }
 
 type ProfileImage {
-  url       String @default("https://api.dicebear.com/6.x/lorelei/svg")
-  public_id String @default("default_lorelei_id")
+  url       String
+  public_id String
 }

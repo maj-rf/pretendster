@@ -42,14 +42,14 @@ export const updateProfilePic = async (req: Request, res: Response) => {
     deleteFromCloud(user.profileImg.public_id);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const updated = await db.user.update({
     where: { id: userId },
     data: {
       profileImg: {
-        url: res.locals.imageDetails?.secure_url,
-        public_id: res.locals.imageDetails?.public_id,
+        set: {
+          url: res.locals.imageDetails?.secure_url as string,
+          public_id: res.locals.imageDetails?.public_id as string,
+        },
       },
     },
     select: excludePass,
