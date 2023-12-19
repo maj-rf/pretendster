@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import { ChangeProfilePicModal } from './ChangeProfilePicModal';
 import { Button } from '../ui/button';
-import { Plus, UserMinus, UserPlus } from 'lucide-react';
+import { UserMinus, UserPlus, Camera } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Loading } from '../Loading';
 import { GeneralAvatar } from '../common/GeneralAvatar';
@@ -24,27 +24,27 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
     <div className="max-w-5xl flex items-center justify-between absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2">
       <Dialog open={showPicModal} onOpenChange={setShowPicModal}>
         <div className="flex items-center">
-          <div className="group">
+          <div className="relative">
             <GeneralAvatar
               profileImg={data.profileImg.url}
               username={data.username}
-              avatarClass="w-28 h-auto border-4 relative"
-            >
-              {state.user?.id === data.id ? (
-                <DialogTrigger asChild>
-                  <Button
-                    className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full"
-                    variant="ghost"
-                  >
-                    <Plus className="w-full h-full" />
-                  </Button>
-                </DialogTrigger>
-              ) : null}
-            </GeneralAvatar>
+              avatarClass="w-28 h-28 border-4 relative"
+            ></GeneralAvatar>
+            {state.user?.id === data.id ? (
+              <DialogTrigger asChild>
+                <Button
+                  className="absolute bottom-1 right-2 w-7 h-7 rounded-full text-white"
+                  size="icon"
+                  variant="default"
+                >
+                  <Camera />
+                </Button>
+              </DialogTrigger>
+            ) : null}
           </div>
 
-          <div className="flex items-center gap-4 translate-y-8">
-            <div className="bg-accent px-2 py-1 rounded-2xl font-medium">
+          <div className="flex flex-col items-end gap-4">
+            <div className="bg-background text-foreground px-2 py-1 rounded-2xl font-medium">
               {data.username}
             </div>
             {data.id === state.user?.id ? null : data.followerIDs.includes(
@@ -61,7 +61,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
                 ) : (
                   <>
                     <UserMinus />
-                    <span className="hidden lg:block">Unfollow</span>
+                    <span>Unfollow</span>
                   </>
                 )}
               </Button>
@@ -77,7 +77,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
                 ) : (
                   <>
                     <UserPlus />
-                    <span className="hidden lg:block">Follow</span>
+                    <span>Follow</span>
                   </>
                 )}
               </Button>

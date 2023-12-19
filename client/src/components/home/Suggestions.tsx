@@ -6,28 +6,28 @@ import { Skeleton } from '../ui/skeleton';
 
 const SuggestionSkeleton = () => {
   return (
-    <section className="md:sticky top-0 block space-y-3 border col-span-9 md:col-span-3 p-4 bg-card rounded-xl h-fit">
+    <section className="border rounded-xl p-4 overflow-hidden bg-card">
       <h1 className="text-center border-b font-semibold">New App Users</h1>
-      <div className="flex gap-2 md:block overflow-scroll scroll-list overflow-y-hidden p-1 md:p-0">
-        <div className="flex flex-col md:flex-row items-center gap-2 p-1 w-20 sm:w-full">
+      <div className="flex flex-row md:flex-col items-center gap-2 overflow-scroll sm:no-scroll scroll-list overflow-y-hidden py-2">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between rounded-md md:w-full">
           <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-5 md:h-10 w-full" />
+          <Skeleton className="h-4 md:h-10 w-20 md:w-full" />
         </div>
-        <div className="flex flex-col md:flex-row items-center gap-2 p-1 w-20 sm:w-full">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between rounded-md md:w-full">
           <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-5 md:h-10 w-full" />
+          <Skeleton className="h-4 md:h-10 w-20 md:w-full" />
         </div>
-        <div className="flex flex-col md:flex-row items-center gap-2 p-1 w-20 sm:w-full">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between rounded-md md:w-full">
           <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-5 md:h-10 w-full" />
+          <Skeleton className="h-4 md:h-10 w-20 md:w-full" />
         </div>
-        <div className="flex flex-col md:flex-row items-center gap-2 p-1 w-20 sm:w-full">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between rounded-md md:w-full">
           <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-5 md:h-10 w-full" />
+          <Skeleton className="h-4 md:h-10 w-20 md:w-full" />
         </div>
-        <div className="flex flex-col md:flex-row items-center gap-2 p-1 w-20 sm:w-full">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between rounded-md md:w-full">
           <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-5 md:h-10 w-full" />
+          <Skeleton className="h-4 md:h-10 w-20 md:w-full" />
         </div>
       </div>
     </section>
@@ -44,14 +44,13 @@ export const Suggestions = () => {
   if (query.isLoading) return <SuggestionSkeleton />;
   if (!query.data) return <div>Invalid</div>;
   return (
-    <section className="md:sticky top-2 block space-y-3 col-span-9 md:col-span-3 p-4 border rounded-xl h-fit bg-card">
+    <div className="border rounded-xl p-4 bg-card text-card-foreground">
       <h1 className="text-center border-b font-semibold">New App Users</h1>
-
-      <div className="flex gap-2 md:block overflow-scroll sm:no-scroll scroll-list overflow-y-hidden p-1 md:p-0">
+      <div className="flex flex-row md:flex-col gap-2 overflow-scroll sm:no-scroll scroll-list overflow-y-hidden py-2">
         {query.data.map((user) => {
           return <SingleSuggestion key={user.id} user={user} />;
         })}
       </div>
-    </section>
+    </div>
   );
 };

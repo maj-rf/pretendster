@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getYourPosts } from '@/services/postService';
 import { PostsSkeleton } from '../home/PostsSkeleton';
 import { useOutletContext } from 'react-router-dom';
+import { MessageSquareDashed } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 /**
  * TODO: props.data already includes user posts. Might not need to fetch again
@@ -21,6 +23,7 @@ export const ProfilePosts = () => {
   //     },
   //   };
   // });
+  const { state } = useAuth();
   const [data]: IUser[] = useOutletContext();
   const query = useQuery({
     queryKey: ['posts', { id: data.id }],
@@ -48,10 +51,13 @@ export const ProfilePosts = () => {
   return (
     <>
       {data.posts.length === 0 ? (
-        <div>
-          <h1 className="text-2xl font-bold text-muted-foreground">
-            {data.username} has not posted yet.
-          </h1>
+        <div className="h-full flex items-center justify-center gap-2 text-lg font-bold text-primary">
+          <MessageSquareDashed size={50} />
+          <span className="font-bold">
+            {state.user?.id === data.id
+              ? 'You have not posted yet.'
+              : `${data.username} has not posted yet.`}
+          </span>
         </div>
       ) : (
         <>

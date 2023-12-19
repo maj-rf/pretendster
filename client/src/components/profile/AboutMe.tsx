@@ -30,19 +30,19 @@ export const AboutMe = ({ data }: { data: IUser }) => {
       <Dialog open={showEditProfile} onOpenChange={setShowEditProfile}>
         <h1 className="text-2xl font-bold">About Me</h1>
         <div className="flex items-center">
-          <Map className="mr-2 h-6 w-6" />
+          <Map className="mr-2 h-6 w-6 text-green-400 fill-white" />
           <span>{data.location ?? 'Nowhere'}</span>
         </div>
         <div className="flex items-center">
-          <Heart className="mr-2 h-6 w-6" />
+          <Heart className="mr-2 h-6 w-6 text-red-200 fill-red-400" />
           <span>{data.status ?? "It's complicated"}</span>
         </div>
         <div className="flex items-center">
-          <Users className="mr-2 h-6 w-6" />
+          <Users className="mr-2 h-6 w-6 text-blue-400 fill-blue-200" />
           <div>Followed by {followers}</div>
         </div>
         <div className="flex items-center">
-          <Users className="mr-2 h-6 w-6" />
+          <Users className="mr-2 h-6 w-6 text-blue-400 fill-blue-300" />
           <div>Follows {following}</div>
         </div>
         <div className="flex items-center justify-start">

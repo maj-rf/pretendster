@@ -59,7 +59,7 @@ export const Searchbar = () => {
                     <Input
                       placeholder="Search Pretendster..."
                       {...field}
-                      className="pl-7 h-8 w-full placeholder:text-primary"
+                      className="pl-7 h-8 w-full"
                       type="search"
                     />
                   </FormControl>

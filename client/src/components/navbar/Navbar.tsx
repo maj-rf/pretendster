@@ -10,8 +10,8 @@ export const Navbar = () => {
   return (
     <>
       {state.user ? (
-        <header className="grow shadow-sm shadow-accent z-10">
-          <nav className="container mx-auto px-3 md:px-6 py-3 flex items-center justify-between">
+        <header className="shadow-sm z-50 w-full fixed top-0 bg-card">
+          <nav className="px-2 md:px-6 py-3 flex items-center justify-between max-w-5xl mx-auto gap-2">
             <div className="text-xl font-bold flex items-center gap-2">
               <Dog />
               <span className="hidden md:block">Pretendster</span>

@@ -39,7 +39,7 @@ export const Post = ({
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <Popover>
-        <Card className="">
+        <Card>
           <CardHeader className="p-4">
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -47,11 +47,11 @@ export const Post = ({
                   profileImg={post.user.profileImg.url}
                   username={post.user.username}
                 />
-                <div className="flex flex-col md:flex-row gap-2">
+                <div className="flex gap-2">
                   <Link className="text-sm" to={`/profile/${post.userId}`}>
                     {post.user.username}
                   </Link>
-                  <p className="text-sm text-primary">
+                  <p className="text-sm text-muted-foreground">
                     {timeSince(new Date(post.createdAt))}
                   </p>
                 </div>
