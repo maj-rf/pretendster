@@ -26,7 +26,7 @@ export const Profile = () => {
             className={({ isActive }) =>
               cn(
                 'px-2 py-1 h-full',
-                isActive ? 'bg-background rounded-md' : undefined,
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
               )
             }
           >
@@ -37,7 +37,7 @@ export const Profile = () => {
             className={({ isActive }) =>
               cn(
                 'px-2 py-1 h-full',
-                isActive ? 'bg-background rounded-md' : undefined,
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
               )
             }
           >
@@ -48,7 +48,7 @@ export const Profile = () => {
             className={({ isActive }) =>
               cn(
                 'px-2 py-1 h-full',
-                isActive ? 'bg-background rounded-md' : undefined,
+                isActive ? 'bg-primary text-white rounded-md' : undefined,
               )
             }
           >

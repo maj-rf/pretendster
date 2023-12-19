@@ -17,6 +17,7 @@ import { Textarea } from '../ui/textarea';
 import { DialogFooter } from '../ui/dialog';
 import { Loading } from '../Loading';
 import { useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 // import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/utils';
 
 /** *
@@ -41,6 +42,7 @@ type CreatePostProps = {
 };
 
 export const PostForm = (props: CreatePostProps) => {
+  const { state } = useAuth();
   const [image, setImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,9 +57,12 @@ export const PostForm = (props: CreatePostProps) => {
     mutationFn: createPost,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
       form.reset();
       props.closeModal();
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({
+        queryKey: ['profile', { id: state.user?.id }],
+      });
     },
   });
 

@@ -3,9 +3,10 @@ import { IPost, IUser } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getYourPosts } from '@/services/postService';
 import { PostsSkeleton } from '../home/PostsSkeleton';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { MessageSquareDashed } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { CreatePost } from '../home/CreatePost';
 
 /**
  * TODO: props.data already includes user posts. Might not need to fetch again
@@ -23,11 +24,12 @@ export const ProfilePosts = () => {
   //     },
   //   };
   // });
+  const { id } = useParams();
   const { state } = useAuth();
   const [data]: IUser[] = useOutletContext();
   const query = useQuery({
-    queryKey: ['posts', { id: data.id }],
-    queryFn: () => getYourPosts(data.id),
+    queryKey: ['posts', { id: id as string }],
+    queryFn: () => getYourPosts(id as string),
   });
 
   if (query.isLoading)
@@ -43,13 +45,14 @@ export const ProfilePosts = () => {
       user: {
         username: data.username,
         profileImg: data.profileImg,
-        id: data.id,
+        id: id as string,
       },
     };
   });
 
   return (
     <>
+      {state.user?.id === id ? <CreatePost /> : null}
       {data.posts.length === 0 ? (
         <div className="h-full flex items-center justify-center gap-2 text-lg font-bold text-primary">
           <MessageSquareDashed size={50} />
@@ -61,7 +64,7 @@ export const ProfilePosts = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-2xl font-bold text-muted-foreground">
+          <h1 className="text-2xl font-bold text-muted-foreground mt-2">
             {data.username}'s Posts
           </h1>
           <div className="w-full mt-4 space-y-4">
