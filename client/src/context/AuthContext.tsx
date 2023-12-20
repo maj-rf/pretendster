@@ -1,11 +1,11 @@
-import { ProfileImage, PublicUser } from '@/types/types';
+import { PublicUser } from '@/types/types';
 import { createContext, useReducer, useEffect, useState } from 'react';
 import { api } from '@/services/api';
 
 type Action =
   | { type: 'login'; payload: PublicUser }
   | { type: 'logout' }
-  | { type: 'pic-update'; payload: ProfileImage }
+  | { type: 'pic-update'; payload: string }
   | { type: 'persist'; payload: PublicUser };
 type Dispatch = (action: Action) => void;
 type State = { user: PublicUser | null };

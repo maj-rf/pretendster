@@ -40,7 +40,7 @@ const formSchema = z.object({
 
 export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
   const { user, closeModal } = props;
-  const { dispatch } = useAuth();
+  const { dispatch, state } = useAuth();
   const [image, setImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -84,7 +84,11 @@ export const ChangeProfilePicModal = (props: ChangeProfilePicModalProps) => {
                 avatarClass="w-28 h-auto border-4 relative"
               />
             ) : (
-              <div className="w-28 h-28 rounded-full border-4"></div>
+              <GeneralAvatar
+                profileImg={state.user?.profileImg as string}
+                username="Uploaded Img"
+                avatarClass="w-28 h-auto border-4 relative"
+              />
             )}
             <FormField
               control={form.control}

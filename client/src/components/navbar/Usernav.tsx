@@ -23,7 +23,7 @@ export const Usernav = ({ user }: { user: PublicUser }) => {
         <Button variant="ghost" className="relative rounded-full w-10 h-10">
           <GeneralAvatar
             username={user.username}
-            profileImg={user.profileImg.url}
+            profileImg={user.profileImg}
           />
         </Button>
       </DropdownMenuTrigger>

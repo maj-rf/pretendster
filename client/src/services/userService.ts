@@ -1,4 +1,4 @@
-import { IUser, AboutMe, ProfileImage } from '@/types/types';
+import { IUser, AboutMe } from '@/types/types';
 import { api } from './api';
 
 export const getProfile = async (id: string): Promise<IUser> => {
@@ -37,7 +37,7 @@ export const unfollowUser = async (userId: string): Promise<IUser> => {
 export const updateProfilePic = async (obj: {
   update: FormData;
   userId: string;
-}): Promise<ProfileImage> => {
+}): Promise<string> => {
   const { data } = await api.patch(
     `users/profile/${obj.userId}/picture`,
     obj.update,

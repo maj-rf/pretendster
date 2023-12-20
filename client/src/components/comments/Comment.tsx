@@ -26,7 +26,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
         <GeneralAvatar
           avatarClass="self-start"
           username={comment.user.username}
-          profileImg={comment.user.profileImg.url}
+          profileImg={comment.user.profileImg}
         />
         <div className="space-y-2">
           <div className="flex gap-2 items-center">

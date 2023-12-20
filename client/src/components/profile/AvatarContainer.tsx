@@ -26,7 +26,7 @@ export const AvatarContainer = ({ data }: { data: IUser }) => {
         <div className="flex items-center">
           <div className="relative">
             <GeneralAvatar
-              profileImg={data.profileImg.url}
+              profileImg={data.profileImg}
               username={data.username}
               avatarClass="w-28 h-28 border-4 relative"
             ></GeneralAvatar>

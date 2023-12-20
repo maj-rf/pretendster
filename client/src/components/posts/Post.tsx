@@ -44,7 +44,7 @@ export const Post = ({
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <GeneralAvatar
-                  profileImg={post.user.profileImg.url}
+                  profileImg={post.user.profileImg}
                   username={post.user.username}
                 />
                 <div className="flex gap-2">
