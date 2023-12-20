@@ -4,15 +4,44 @@
 
 The server & client for my Pretendster Social Media app.
 
+Pretendster has the following functionalities:
+
+- [x] Customize Profile Bio and Profile Picture
+- [x] Search Users on the App
+- [x] Follow and Unfollow Users
+- [x] See posts from you and your followed users
+- [x] Make your own posts. Optionally add an image. 
+- [x] Create and delete comments to posts
+- [x] Like posts made by users
+- [ ] And more in the future (hopefully!)...
+
 Live URLs
 
 - [Render](https://pretendster-mono.onrender.com/)
 
 Previews
 
-![imgur-mobile](https://i.imgur.com/p9GZbKT.png)
-![imgur-web](https://i.imgur.com/Bc2cEVo.png)
+<div align="center">
+  <kbd>
+    <img src="https://i.imgur.com/HzkWmlW.png" width="800" height="auto"/>
+    <div>Web View</div>
+  </kbd>
+  
+</div>
 
+<br>
+
+<div align="center">
+  <kbd>
+    <img src="https://i.imgur.com/0Z17pxT.png" width="250" height="auto"/>
+    <div>Timeline Mobile View</div>
+  </kbd>
+  <kbd>
+    <img src="https://i.imgur.com/FbOH6W8.png" width="250" height="auto"/>
+    <div>Profile Mobile View</div>
+  </kbd>
+</div>
+ 
 ## REST API Endpoints
 
 Base URL => /api/v1
@@ -21,6 +50,7 @@ Base URL => /api/v1
 
 | Description | Method | Endpoint       |
 | ----------- | ------ | -------------- |
+| Session     | GET    | /auth/session  |
 | Register    | POST   | /auth/register |
 | Login       | POST   | /auth/login    |
 | Logout      | POST   | /auth/logout   |
@@ -76,6 +106,7 @@ Technologies:
 3. Run `npm run dev` for development for client & server or `npm run build` for production.
 
 ## Setup for ENV variables
+> :warning: **Warning:** Do not push your `.env` secrets carelessly.
 
 Check .env.example
 
