@@ -38,20 +38,13 @@ export const updateProfilePic = async (req: Request, res: Response) => {
   const user = await db.user.findUnique({ where: { id: userId } });
   if (!user) throw createHttpError(401, 'User not found');
   // delete existing image from cloudinary if it exists
-  if (user.profileImg.public_id !== 'default_lorelei_id') {
-    deleteFromCloud(user.profileImg.public_id);
+  if (user.profileImg.includes('cloudinary')) {
+    deleteFromCloud(user.profileImg);
   }
 
   const updated = await db.user.update({
     where: { id: userId },
-    data: {
-      profileImg: {
-        set: {
-          url: res.locals.imageDetails?.secure_url as string,
-          public_id: res.locals.imageDetails?.public_id as string,
-        },
-      },
-    },
+    data: { profileImg: res.locals.imageDetails?.secure_url },
     select: excludePass,
   });
   res.status(201).json(updated.profileImg);

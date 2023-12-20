@@ -29,10 +29,6 @@ export const register = async (req: Request, res: Response) => {
       //   '6579062fefeb3ec3d3b81e38',
       //   '6579064fefeb3ec3d3b81e39',
       // ],
-      profileImg: {
-        url: 'https://api.dicebear.com/6.x/lorelei/svg',
-        public_id: 'default_lorelei_id',
-      },
     },
   });
 

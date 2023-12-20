@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { db } from '../utils/db';
 import createHttpError from 'http-errors';
+import { deleteFromCloud } from '../utils/uploadConfig';
 
 export const createPost = async (req: Request, res: Response) => {
   const userId = req.user.id;
@@ -99,7 +100,10 @@ export const deletePost = async (req: Request, res: Response) => {
   const post = await db.post.findUnique({ where: { id: postId } });
   if (!post) throw createHttpError(401, 'Post not found');
   if (post.userId !== userId) throw createHttpError(403, 'Forbidden');
-
+  // delete existing image from cloudinary
+  if (post.postImg && post.postImg.includes('cloudinary')) {
+    deleteFromCloud(post.postImg);
+  }
   await db.comment.deleteMany({ where: { postId } });
   await db.post.delete({ where: { id: postId } });
 

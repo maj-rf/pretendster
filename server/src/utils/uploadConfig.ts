@@ -25,11 +25,15 @@ export const uploadToCloud = async (
   return res;
 };
 
-export const deleteFromCloud = async (public_id: string) => {
+export const deleteFromCloud = async (url: string) => {
   const { uploader } = cloudinary;
-  const res = uploader.destroy(public_id, function (result) {
-    console.log(result);
-  });
+  const parsedUrl = new URL(url);
+  const pathComponents = parsedUrl.pathname.split('/');
+  const public_id = pathComponents[pathComponents.length - 1].replace(
+    /\.[^/.]+$/,
+    '',
+  );
+  const res = uploader.destroy(public_id);
   return res;
 };
 
