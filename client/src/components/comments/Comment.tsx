@@ -28,7 +28,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
           username={comment.user.username}
           profileImg={comment.user.profileImg}
         />
-        <div className="space-y-2">
+        <div className="space-y-2 overflow-hidden">
           <div className="flex gap-2 items-center">
             <Link className="text-sm" to={`/profile/${comment.userId}`}>
               {comment.user.username}
@@ -53,7 +53,7 @@ export const Comment = ({ comment }: { comment: IComment }) => {
               </Button>
             ) : null}
           </div>
-          <p className="text-sm whitespace-pre-wrap p-2 rounded-md bg-primary text-white speech-bubble">
+          <p className="text-sm whitespace-pre-wrap break-words p-2 rounded-md bg-primary text-white speech-bubble">
             {comment.content}
           </p>
         </div>
